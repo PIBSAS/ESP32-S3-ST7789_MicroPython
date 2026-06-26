@@ -139,7 +139,7 @@ def main():
                 tft.bitmap(self.bitmaps, self.col, self.row, self.frames[self.step])
 
 
-    tft = tft_config.config(1, buffer_size=64*62*2)   # configure display driver
+    tft = tft_config.config(1, buffer_size=160*80*2)   # configure display driver
 
     # init and clear screen
     tft.init()
