@@ -1,5 +1,5 @@
 from machine import SPI, Pin
-from st7789
+import st7789
 
 
 SPI_ID = 1
@@ -23,7 +23,6 @@ def config(rotation=0, buffer_size=0, options=0):
         cs=Pin(PIN_CS, Pin.OUT),
         dc=Pin(PIN_DC, Pin.OUT),
         backlight=Pin(PIN_BLK, Pin.OUT),
-        rotations=custom_rotations,
         rotation=rotation,
         options=options,
         buffer_size= buffer_size)
