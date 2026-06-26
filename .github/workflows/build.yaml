@@ -70,12 +70,11 @@ jobs:
           echo "IDF_PATH=$GITHUB_WORKSPACE/esp-idf" >> $GITHUB_ENV
           idf.py --version
 
-      - name: Add ST7789 library from russhughes
+      - name: Add ST7789
         run: |
-          git clone --depth 1 https://github.com/russhughes/st7789_mpy.git
           mkdir -p micropython/ports/esp32/modules
-          cp st7789_mpy/fonts/vector/*.py micropython/ports/esp32/modules/
-          echo "freeze('modules', 'tft_config.py')" >> micropython/ports/esp32/manifest.py
+          cp examples/configs/esp32s3-N16R8/tft_config.py micropython/ports/esp32/modules/
+          cp fonts/vector/*.py micropython/ports/esp32/modules/
           echo "freeze('modules', '*.py')" >> micropython/ports/esp32/manifest.py
           
       - name: Build mpy-cross and ESP32-S3 port
