@@ -148,7 +148,7 @@ jobs:
           body: |
             Automated release for MicroPython.
             - What we get here:
-              - ```micropython.bin, bootloader.bin and partition-table.bin```
+              - ```firmware.bin, micropython.bin, bootloader.bin and partition-table.bin```
             
             # Instructions
             
@@ -180,25 +180,35 @@ jobs:
             ### Put ESP32 S3 N16R8 in BOOTLOADER MODE:
             - With USB cable on USB COM Port, press BOOT button then RST button, release RST, then release BOOT button. Or unplug, press BOOT button meanwhile you plug in the usb cable to PC or SBC like a Raspberry Pi.
             - Alternative: Use Thonny IDE, plug your ESP32-S3, on Thonny Shell type:
+            
             ```bash
             from machine import bootloader
             ```
             Press ``Enter`` then type:
+            
             ```bash
             bootloader()
             ```
+            
             Press ``Enter`` then just cose Thonny and go to Terminal with Virtual Environment activate.
             
             ### Erase Flash:
+            
             ```bash
-            python -m esptool --chip esp32s3 erase-flash
+            python -m esptool erase-flash
             ```
             
             #### Then Flash:
             - Put 3 binaries in the same folder you are executing the steps, example Downloads folder, you need to be in that folder where are the binaries.
+            
             ```bash
-            python -m esptool --chip esp32s3 -b 460800 --before default-reset --after no-reset write-flash --flash-mode dio --flash-size detect --flash-freq 80m 0x0 bootloader.bin 0x8000 partition-table.bin 0x10000 micropython.bin
+            python -m esptool write-flash 0x0 bootloader.bin 0x8000 partition-table.bin 0x10000 micropython.bin
             ```
+            - Or just `firmware.bin` that have 3 bins in 1:
+            
+            ````bash
+            python -m esptool write-flash 0x0 firmware.bin
+            ````
             
             ### NOTE IN WINDOWS:
             - If you get a PowerShell Scripts Policy Execution Exception that don't let you activate the Virtual Environment:
