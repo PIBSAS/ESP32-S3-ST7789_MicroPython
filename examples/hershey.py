@@ -6,7 +6,7 @@ hershey.py
 """
 
 import random
-import utime
+import time
 import st7789
 import tft_config
 
@@ -105,7 +105,7 @@ def main():
         tft.vscsad(scroll+tfa)                              # scroll the display
         scroll = (scroll+1) % height                        # update the scroll position
         to_scroll -= 1                                      # update rows left to scroll
-        utime.sleep(0.02)                                   # stop and smell the roses
+        time.sleep(0.02)                                   # stop and smell the roses
 
 
 main()
