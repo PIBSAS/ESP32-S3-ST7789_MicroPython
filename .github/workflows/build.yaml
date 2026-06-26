@@ -89,29 +89,29 @@ jobs:
       - name: Show build configuration
         run: |
           echo "===== FLASH ====="
-          grep FLASHSIZE micropython/ports/esp32/build-ESP32_GENERIC_S3/sdkconfig || true
+          grep FLASHSIZE micropython/ports/esp32/build-ESP32_GENERIC_S3-SPIRAM_OCT/sdkconfig || true
       
           echo
           echo "===== PSRAM ====="
-          grep SPIRAM micropython/ports/esp32/build-ESP32_GENERIC_S3/sdkconfig || true
+          grep SPIRAM micropython/ports/esp32/build-ESP32_GENERIC_S3-SPIRAM_OCT/sdkconfig || true
       
           echo
           echo "===== PARTITIONS ====="
-          grep PARTITION micropython/ports/esp32/build-ESP32_GENERIC_S3/sdkconfig || true
+          grep PARTITION micropython/ports/esp32/build-ESP32_GENERIC_S3-SPIRAM_OCT/sdkconfig || true
         
       - name: Verify build artifacts
         run: |
-          ls -lh micropython/ports/esp32/build-ESP32_GENERIC_S3/*.bin
-          ls -lh micropython/ports/esp32/build-ESP32_GENERIC_S3/bootloader/*.bin
-          ls -lh micropython/ports/esp32/build-ESP32_GENERIC_S3/partition_table/*.bin
+          ls -lh micropython/ports/esp32/build-ESP32_GENERIC_S3-SPIRAM_OCT/*.bin
+          ls -lh micropython/ports/esp32/build-ESP32_GENERIC_S3-SPIRAM_OCT/bootloader/*.bin
+          ls -lh micropython/ports/esp32/build-ESP32_GENERIC_S3-SPIRAM_OCT/partition_table/*.bin
           
       - name: Prepare artifacts for release
         run: |
           mkdir -p artifacts
-          cp micropython/ports/esp32/build-ESP32_GENERIC_S3/firmware.bin artifacts/
-          cp micropython/ports/esp32/build-ESP32_GENERIC_S3/micropython.bin artifacts/
-          cp micropython/ports/esp32/build-ESP32_GENERIC_S3/bootloader/bootloader.bin artifacts/
-          cp micropython/ports/esp32/build-ESP32_GENERIC_S3/partition_table/partition-table.bin artifacts/
+          cp micropython/ports/esp32/build-ESP32_GENERIC_S3-SPIRAM_OCT/firmware.bin artifacts/
+          cp micropython/ports/esp32/build-ESP32_GENERIC_S3-SPIRAM_OCT/micropython.bin artifacts/
+          cp micropython/ports/esp32/build-ESP32_GENERIC_S3-SPIRAM_OCT/bootloader/bootloader.bin artifacts/
+          cp micropython/ports/esp32/build-ESP32_GENERIC_S3-SPIRAM_OCT/partition_table/partition-table.bin artifacts/
 
       - name: Verificar existencia de los cuatro binarios
         run: |
