@@ -5,7 +5,7 @@ feathers.py
 
 import random
 import math
-import utime
+import time
 import st7789
 import tft_config
 
@@ -92,7 +92,7 @@ def main():
         counter += 1
 
         # pause to slow down scrolling
-        utime.sleep(0.005)
+        time.sleep(0.005)
 
 
 main()
