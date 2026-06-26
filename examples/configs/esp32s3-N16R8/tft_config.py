@@ -1,8 +1,8 @@
 from machine import SPI, Pin
 import st7789
 
-TFA = 40
-BFA = 40
+TFA = 0
+BFA = 0
 
 SPI_ID = 1
 SPI_BAUDRATE = 40000000 # MAX 60Mhz
