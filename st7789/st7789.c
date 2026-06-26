@@ -27,7 +27,7 @@
  * THE SOFTWARE.
  */
 
-#define __ST7789_VERSION__ "0.2.1"
+#define __ST7789_VERSION__ "1.0.0"
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
@@ -40,7 +40,7 @@
 #include "py/mphal.h"
 
 // Fix for MicroPython > 1.21 https://github.com/ricksorensen
-#if MICROPY_VERSION_MAJOR >= 1 && MICROPY_VERSION_MINOR > 21
+#if MICROPY_VERSION_MAJOR >= 1 && MICROPY_VERSION_MINOR > 22
 #include "extmod/modmachine.h"
 #else
 #include "extmod/machine_spi.h"
