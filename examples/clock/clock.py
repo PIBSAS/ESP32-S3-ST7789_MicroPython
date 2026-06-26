@@ -15,7 +15,7 @@ clock.py
 
 """
 import gc
-import utime
+import time
 from machine import Pin, SPI, RTC
 import st7789
 import tft_config
@@ -52,15 +52,15 @@ class Button:
     def __init__(self, pin, callback, trigger=Pin.IRQ_FALLING, debounce=350):
         self.callback = callback
         self.debounce = debounce
-        self._next_call = utime.ticks_ms() + self.debounce
+        self._next_call = time.ticks_ms() + self.debounce
         pin.irq(trigger=trigger, handler=self.debounce_handler)
 
     def call_callback(self, pin):
         self.callback(pin)
 
     def debounce_handler(self, pin):
-        if utime.ticks_ms() > self._next_call:
-            self._next_call = utime.ticks_ms() + self.debounce
+        if time.ticks_ms() > self._next_call:
+            self._next_call = time.ticks_ms() + self.debounce
             self.call_callback(pin)
 
 def hour_pressed(pin):
@@ -140,7 +140,7 @@ def main():
             last_time = "-----"
 
         # get the current hour and minute
-        _, _, _, hour, minute, second, _, _ = utime.localtime()
+        _, _, _, hour, minute, second, _, _ = time.localtime()
 
         # 12 hour time
         if hour == 0:
@@ -183,7 +183,7 @@ def main():
         if background_lock:
             background_lock -= 1
 
-        utime.sleep(0.5)
+        time.sleep(0.5)
         gc.collect()
 
 main()
