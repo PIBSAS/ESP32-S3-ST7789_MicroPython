@@ -782,6 +782,11 @@ elif buttons.name == 'wio_terminal':
     left_flipper = buttons.center
     right_flipper = buttons.button1
 
+elif buttons.name == 'esp32s3-n16r8':
+    left_flipper = buttons.left
+    right_flipper = buttons.right
+    REDRAW_EVERY_FRAME = False
+
 elif buttons.name == 't-dongle-s3':     # not practical, but why not
     left_flipper = buttons.button
     right_flipper = buttons.button
