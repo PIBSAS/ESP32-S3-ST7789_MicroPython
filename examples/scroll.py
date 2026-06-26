@@ -6,7 +6,7 @@ scroll.py
     (i.e. 8 or 16 pixels high).
 """
 
-import utime
+import time
 import st7789
 import tft_config
 import vga1_bold_16x16 as font
@@ -37,7 +37,7 @@ def main():
     background = st7789.BLACK
 
     tft.fill(background)
-    utime.sleep(1)
+    time.sleep(1)
 
     height = tft.height()
     width = tft.width()
@@ -90,7 +90,7 @@ def main():
         scroll += 1
         scroll %= height
 
-        utime.sleep(0.01)
+        time.sleep(0.01)
 
 
 main()
