@@ -15,7 +15,7 @@ clock.py
 
 """
 import gc
-import utime
+import time
 from machine import Pin, SPI, RTC
 import st7789
 import tft_config
@@ -52,15 +52,15 @@ class Button:
     def __init__(self, pin, callback, trigger=Pin.IRQ_FALLING, debounce=350):
         self.callback = callback
         self.debounce = debounce
-        self._next_call = utime.ticks_ms() + self.debounce
+        self._next_call = time.ticks_ms() + self.debounce
         pin.irq(trigger=trigger, handler=self.debounce_handler)
 
     def call_callback(self, pin):
         self.callback(pin)
 
     def debounce_handler(self, pin):
-        if utime.ticks_ms() > self._next_call:
-            self._next_call = utime.ticks_ms() + self.debounce
+        if time.ticks_ms() > self._next_call:
+            self._next_call = time.ticks_ms() + self.debounce
             self.call_callback(pin)
 
 def hour_pressed(pin):
@@ -96,11 +96,11 @@ def main():
     background_change = True
     time_col = tft.width()//2 - font.MAX_WIDTH * 5 //2
     time_row = tft.height()//2 - font.HEIGHT //2
-    time_color = st7789.WHITE
+    time_color = st7789.YELLOW
     last_time = "-----"
 
-    Button(pin=Pin(35, mode=Pin.IN, pull=Pin.PULL_UP), callback=hour_pressed)
-    Button(pin=Pin(0, mode=Pin.IN, pull=Pin.PULL_UP), callback=minute_pressed)
+    Button(pin=Pin(15, mode=Pin.IN, pull=Pin.PULL_UP), callback=hour_pressed)
+    Button(pin=Pin(16, mode=Pin.IN, pull=Pin.PULL_UP), callback=minute_pressed)
 
     while True:
 
@@ -113,8 +113,8 @@ def main():
             digit_background = []
             gc.collect()
 
-            # draw the new background from the clock_{WIDTH}x{HEIGHT} directory
-            image_file = "clock_{}x{}/{}".format(tft.width(), tft.height(), image)
+            # draw the new background from the nasa_{WIDTH}x{HEIGHT} directory
+            image_file = f"clock_{tft.width()}x{tft.height()}/{image}"
             tft.jpg(image_file, 0, 0, st7789.SLOW)
 
             # calculate the starting column for each time digit
@@ -140,7 +140,7 @@ def main():
             last_time = "-----"
 
         # get the current hour and minute
-        _, _, _, hour, minute, second, _, _ = utime.localtime()
+        _, _, _, hour, minute, second, _, _ = time.localtime()
 
         # 12 hour time
         if hour == 0:
@@ -150,13 +150,13 @@ def main():
 
         # format time  string as "HH:MM"
         time_fmt = "{:02d}:{:02d}" if second % 2 == 0 else "{:02d} {:02d}"
-        time = time_fmt.format(hour, minute)
+        current_time = time_fmt.format(hour, minute)
 
         # loop through the time string
         for digit in range(5):
 
             # Check if this digit has changed
-            if time[digit] != last_time[digit]:
+            if current_time[digit] != last_time[digit]:
 
                 # digit 1 is the hour, change the background every hour
                 # digit 3 is the tens of the minute, change the background every 10 minutes
@@ -168,7 +168,7 @@ def main():
                 # of the ':' because it is always the same width
                 tft.write(
                     font,                       # the font to write to the display
-                    time[digit],                # time string digit to write
+                    current_time[digit],                # time string digit to write
                     digit_columns[digit],       # write to the correct column
                     time_row,                   # write on row
                     time_color,                 # color of time text
@@ -177,13 +177,13 @@ def main():
                     digit != 2)                 # don't fill to the right of the ':'
 
         # save the current time
-        last_time = time
+        last_time = current_time
 
         # decrement the background lock
         if background_lock:
             background_lock -= 1
 
-        utime.sleep(0.5)
+        time.sleep(0.5)
         gc.collect()
 
 main()
