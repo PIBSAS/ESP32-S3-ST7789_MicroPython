@@ -5,7 +5,7 @@ fonts.py
 
 """
 
-import utime
+import time
 import st7789
 import tft_config
 import vga1_8x8 as font1
@@ -33,11 +33,11 @@ def main():
                     line += font.HEIGHT
 
                     if line > tft.height()-font.HEIGHT:
-                        utime.sleep(3)
+                        time.sleep(3)
                         tft.fill(st7789.BLUE)
                         line = 0
                         col = 0
 
-            utime.sleep(3)
+            time.sleep(3)
 
 main()
