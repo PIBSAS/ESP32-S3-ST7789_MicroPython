@@ -6,7 +6,7 @@ watch.py - Analog Watch Display using jpg for the face and filled polygons for t
     Previous version video: https://youtu.be/NItKb6umMc4
 """
 
-import utime
+import time
 import math
 import st7789
 import tft_config
@@ -77,10 +77,10 @@ def main():
     while True:
         # save the current time in seconds so we can determine when
         # when to update the display.
-        last = utime.time()
+        last = time.time()
 
         # get the current hour, minute and second
-        _, _, _, hour, minute, second, _, _ = utime.localtime()
+        _, _, _, hour, minute, second, _, _ = time.localtime()
 
         # constrain hours to 12 hour time
         hour %= 12
@@ -140,8 +140,8 @@ def main():
         tft.fill_circle(center_x, center_y, 5, st7789.BLACK)
 
         # wait until the current second changes
-        while last == utime.time():
-           utime.sleep_ms(50)
+        while last == time.time():
+           time.sleep_ms(50)
 
 
 main()
