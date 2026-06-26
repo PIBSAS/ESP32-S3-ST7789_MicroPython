@@ -5,7 +5,7 @@ hello.py
 """
 
 import random
-import utime
+import time
 import st7789
 import tft_config
 import vga2_bold_16x32 as font
@@ -26,7 +26,7 @@ def main():
     tft.init()
     tft.fill(st7789.RED)
     center(b'\xAEHello\xAF')
-    utime.sleep(2)
+    time.sleep(2)
     tft.fill(st7789.BLACK)
 
     while True:
