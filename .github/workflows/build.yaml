@@ -83,7 +83,7 @@ jobs:
           cd ${{ github.workspace }}/micropython
           make -j$(nproc) -C mpy-cross
           make -j$(nproc) -C ports/esp32 submodules
-          make -j$(nproc) -C ports/esp32 BOARD=ESP32_GENERIC_S3 BOARD_VARIANT=SPIRAM_OCT USER_C_MODULES=${{ github.workspace }}/st7789_mpy/st7789/micropython.cmake
+          make -j$(nproc) -C ports/esp32 BOARD=ESP32_GENERIC_S3 BOARD_VARIANT=SPIRAM_OCT USER_C_MODULES=${{ github.workspace }}/st7789/micropython.cmake
 
       - name: Show build configuration
         run: |
