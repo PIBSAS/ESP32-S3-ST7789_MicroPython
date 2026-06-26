@@ -15,19 +15,7 @@ import time
 import random
 from machine import Pin, SPI
 import st7789
-
-#
-# Select a config module for your display
-#
-
-# Not suitable for esp32_7735_128 due to resolution
-# Not suitable for esp32_7735_160 due to resolution
-# import tdisplay as Driver
-# import twatch_2020_v2 as Driver
-# import ws_pico_114 as Driver
-# import ws_pico_13 as Driver
-# import ws_pico_2 as Driver
-import tdisplay_rp2040 as Driver
+import tft_config as Driver
 
 tft = Driver.config(0)
 
@@ -47,12 +35,11 @@ class toast():
     def move(self):
         if self.x <= 0:
             self.speed = random.randint(2, 5)
-            self.x = 135-64
+            self.x = tft.width() - 64
 
         self.step += 1
         self.step %= self.steps
         self.x -= self.speed
-
 
 def main():
     '''
