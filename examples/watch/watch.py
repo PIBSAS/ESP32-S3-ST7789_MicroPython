@@ -10,20 +10,21 @@ import time
 import math
 import st7789
 import tft_config
+from machine import RTC
 
-
-tft = tft_config.config(1)
+rtc = RTC()
+tft = tft_config.config(0)
 
 
 def hand_polygon(length, radius):
     return [
         (0, 0),
-        (-radius, radius),
-        (-radius, int(length * 0.3)),
-        (-1, length),
-        (1, length),
-        (radius, int(length * 0.3)),
-        (radius, radius),
+        (-radius, -radius),
+        (-radius, -int(length * 0.3)),
+        (-1, -length),
+        (1, -length),
+        (radius, -int(length * 0.3)),
+        (radius, -radius),
         (0,0)
     ]
 
