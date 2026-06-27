@@ -8,7 +8,7 @@ https://images.nasa.gov/
 
 import random
 import time, gc
-import jd9853
+import st7789
 import tft_config
 from machine import freq
 
