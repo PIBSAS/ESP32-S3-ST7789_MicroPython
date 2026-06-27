@@ -52,7 +52,7 @@ your display, these values can be overridden using the `offsets` method. The
 
 #### 128x128 st7735 cfg_helper.py example
 
-```
+```python
 inversion_mode(False)
 color_order = st7789.BGR
 for rotation 0 use offset(2, 1)
@@ -63,7 +63,7 @@ for rotation 3 use offset(3, 2)
 
 #### 128x160 st7735 cfg_helper.py example
 
-```
+```python
 inversion_mode(False)
 color_order = st7789.RGB
 for rotation 0 use offset(0, 0)
@@ -71,52 +71,6 @@ for rotation 1 use offset(0, 0)
 for rotation 2 use offset(0, 0)
 for rotation 3 use offset(0, 0)
 ```
-
-## Pre-compiled firmware files
-
-The firmware directory contains pre-compiled firmware for various devices with
-the st7789 C driver and frozen python font files. See the README.md file in the
-fonts folder for more information on the font files.
-
-MicroPython MicroPython v1.20.0 compiled with ESP IDF v4.4.4 using CMake
-
-Directory             | File         | Device
---------------------- | ------------ | ----------------------------------
-GENERIC-7789          | firmware.bin | Generic ESP32 devices
-GENERIC_SPIRAM-7789   | firmware.bin | Generic ESP32 devices with SPI Ram
-GENERIC_C3            | firmware.bin | Generic ESP32-C3 devices
-LOLIN_S2_MINI         | firmware.bin | Wemos S2 mini
-PYBV11                | firmware.dfu | Pyboard v1.1 (No PNG)
-RP2                   | firmware.uf2 | Raspberry Pi Pico RP2040
-RP2W                  | firmware.uf2 | Raspberry Pi PicoW RP2040
-T-DISPLAY             | firmware.bin | LILYGO® TTGO T-Display
-T-Watch-2020          | firmware.bin | LILYGO® T-Watch 2020
-WIO_TERMINAL          | firmware.bin | Seeed Wio Terminal
-
-
-## Additional Modules
-
-Module             | Source
------------------- | -----------------------------------------------------------
-axp202c            | https://github.com/lewisxhe/AXP202X_Libraries
-focaltouch         | https://gitlab.com/mooond/t-watch2020-esp32-with-micropython
-
-## Video Examples
-
-Example               | Video
---------------------- | -----------------------------------------------------------
-PYBV11 hello.py       | https://youtu.be/OtcERmad5ps
-PYBV11 scroll.py      | https://youtu.be/ro13rvaLKAc
-T-DISPLAY fonts.py    | https://youtu.be/2cnAhEucPD4
-T-DISPLAY hello.py    | https://youtu.be/z41Du4GDMSY
-T-DISPLAY scroll.py   | https://youtu.be/GQa-RzHLBak
-T-DISPLAY roids.py    | https://youtu.be/JV5fPactSPU
-TWATCH-2020 draw.py   | https://youtu.be/O_lDBnvH1Sw
-TWATCH-2020 hello.py  | https://youtu.be/Bwq39tuMoY4
-TWATCH-2020 bitmap.py | https://youtu.be/DgYzgnAW2d8
-TWATCH-2020 watch.py  | https://youtu.be/NItKb6umMc4
-
-This is a work in progress.
 
 ## Thanks go out to:
 
@@ -135,156 +89,8 @@ pyboard1.1, and Raspberry Pi Pico devices.
 
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/russhughes/st7789_mpy/master/docs/ST7789.jpg" alt="ST7789 display photo"/>
+  <img src="docs/ST7789.jpg" alt="ST7789 display photo"/>
 </p>
-
-
-# Setup MicroPython Build Environment in Ubuntu 20.04.2
-
-See the MicroPython
-[README.md](https://github.com/micropython/micropython/blob/master/ports/esp32/README.md#setting-up-esp-idf-and-the-build-environment)
-if you run into any build issues not directly related to the st7789 driver. The
-recommended MicroPython build instructions may have changed.
-
-Update and upgrade Ubuntu using apt-get if you are using a new install of
-Ubuntu or the Windows Subsystem for Linux.
-
-```bash
-sudo apt-get -y update
-sudo apt-get -y upgrade
-```
-
-Use apt-get to install the required build tools.
-
-```bash
-sudo apt-get -y install build-essential libffi-dev git pkg-config cmake virtualenv python3-pip python3-virtualenv
-```
-
-### Install a compatible esp-idf SDK
-
-The MicroPython README.md states: "The ESP-IDF changes quickly, and MicroPython
-only supports certain versions. Currently, MicroPython supports v4.0.2, v4.1.1,
-and v4.2 although other IDF v4 versions may also work."  I have had good luck
-using IDF v4.4
-
-Clone the esp-idf SDK repo -- this usually takes several minutes.
-
-```bash
-git clone -b v4.4 --recursive https://github.com/espressif/esp-idf.git
-cd esp-idf/
-git pull
-```
-
-If you already have a copy of the IDF, you can checkout a version compatible
-with MicroPython and update the submodules using:
-
-```bash
-$ cd esp-idf
-$ git checkout v4.4
-$ git submodule update --init --recursive
-```
-
-Install the esp-idf SDK.
-
-```bash
-./install.sh
-```
-
-Source the esp-idf export.sh script to set the required environment variables.
-You must source the file and not run it using ./export.sh. You will need to
-source this file before compiling MicroPython.
-
-```bash
-source export.sh
-cd ..
-```
-
-Clone the MicroPython repo.
-
-```bash
-git clone https://github.com/micropython/micropython.git
-```
-
-Clone the st7789 driver repo.
-
-```bash
-git clone https://github.com/russhughes/st7789_mpy.git
-```
-
-Update the git submodules and compile the MicroPython cross-compiler
-
-```bash
-cd micropython/
-git submodule update --init
-cd mpy-cross/
-make
-cd ..
-cd ports/esp32
-```
-
-Copy any .py files you want to include in the firmware as frozen python modules
-to the modules subdirectory in ports/esp32. Be aware there is a limit to the
-flash space available. You will know you have exceeded this limit if you
-receive an error message saying the code won't fit in the partition or if your
-firmware continuously reboots with an error.
-
-For example:
-
-```bash
-cp ../../../st7789_mpy/fonts/bitmap/vga1_16x16.py modules
-cp ../../../st7789_mpy/fonts/truetype/NotoSans_32.py modules
-cp ../../../st7789_mpy/fonts/vector/scripts.py modules
-```
-
-Build the MicroPython firmware with the driver and frozen .py files in the
-modules directory. If you did not add any .py files to the modules directory,
-you can leave out the FROZEN_MANIFEST and FROZEN_MPY_DIR settings.
-
-```bash
-make USER_C_MODULES=../../../../st7789_mpy/st7789/micropython.cmake FROZEN_MANIFEST="" FROZEN_MPY_DIR=$UPYDIR/modules
-```
-
-Erase and flash the firmware to your device. Set PORT= to the ESP32's usb
-serial port. I could not get the USB serial port to work under the Windows
-Subsystem (WSL2) for Linux. If you have the same issue, you can copy the
-firmware.bin file and use the Windows esptool.py to flash your device.
-
-```bash
-make USER_C_MODULES=../../../../st7789_mpy/st7789/micropython.cmake PORT=/dev/ttyUSB0 erase
-make USER_C_MODULES=../../../../st7789_mpy/st7789/micropython.cmake PORT=/dev/ttyUSB0 deploy
-```
-
-The firmware.bin file will be in the build-GENERIC directory. To flash using
-the python esptool.py utility. Use pip3 to install the esptool if it's not
-already installed.
-
-```bash
-pip3 install esptool
-```
-
-Set PORT= to the ESP32's USB serial port
-
-```bash
-esptool.py --port COM3 erase_flash
-esptool.py --chip esp32 --port COM3 write_flash -z 0x1000 firmware.bin
-```
-## CMake building instructions for MicroPython 1.14 and later
-
-for ESP32:
-
-    $ cd micropython/ports/esp32
-
-And then compile the module with specified USER_C_MODULES dir.
-
-    $ make USER_C_MODULES=../../../../st7789_mpy/st7789/micropython.cmake
-
-for Raspberry Pi PICO:
-
-    $ cd micropython/ports/rp2
-
-And then compile the module with specified USER_C_MODULES dir.
-
-    $ make USER_C_MODULES=../../../st7789_mpy/st7789/micropython.cmake
 
 ## Working examples
 
@@ -415,74 +221,103 @@ of the screen.
 
      Orientation | MADCTL Values for RGB color order, for BGR color order add 0x08 to the value.
      ----------- | ---------------------------------------------------------------------------------
-     <img src="https://raw.githubusercontent.com/russhughes/st7789_mpy/master/docs/madctl_0.png" /> | 0x00
-     <img src="https://raw.githubusercontent.com/russhughes/st7789_mpy/master/docs/madctl_y.png" /> | 0x80 ( MADCTL_MY )
-     <img src="https://raw.githubusercontent.com/russhughes/st7789_mpy/master/docs/madctl_x.png" /> | 0x40 ( MADCTL_MX )
-     <img src="https://raw.githubusercontent.com/russhughes/st7789_mpy/master/docs/madctl_xy.png" /> | 0xC0 ( MADCTL_MX + MADCTL_MY )
-     <img src="https://raw.githubusercontent.com/russhughes/st7789_mpy/master/docs/madctl_v.png" /> | 0x20 ( MADCTL_MV )
-     <img src="https://raw.githubusercontent.com/russhughes/st7789_mpy/master/docs/madctl_vy.png" /> | 0xA0 ( MADCTL_MV + MADCTL_MY )
-     <img src="https://raw.githubusercontent.com/russhughes/st7789_mpy/master/docs/madctl_vx.png" /> | 0x60 ( MADCTL_MV + MADCTL_MX )
-     <img src="https://raw.githubusercontent.com/russhughes/st7789_mpy/master/docs/madctl_vxy.png" /> | 0xE0 ( MADCTL_MV + MADCTL_MX + MADCTL_MY )
+     <img src="docs/madctl_0.png" /> | 0x00
+     <img src="docs/madctl_y.png" /> | 0x80 ( MADCTL_MY )
+     <img src="docs/madctl_x.png" /> | 0x40 ( MADCTL_MX )
+     <img src="docs/madctl_xy.png" /> | 0xC0 ( MADCTL_MX + MADCTL_MY )
+     <img src="docs/madctl_v.png" /> | 0x20 ( MADCTL_MV )
+     <img src="docs/madctl_vy.png" /> | 0xA0 ( MADCTL_MV + MADCTL_MY )
+     <img src="docs/madctl_vx.png" /> | 0x60 ( MADCTL_MV + MADCTL_MX )
+     <img src="docs/madctl_vxy.png" /> | 0xE0 ( MADCTL_MV + MADCTL_MX + MADCTL_MY )
 
-- `init()`
-
+- ```python
+  init()`
+  ```
+  
   Must be called to initialize the display.
 
-- `on()`
+- ```python
+  on()
+  ```
 
   Turn on the backlight pin if one was defined during init.
 
-- `off()`
+- ```python
+  off()
+  ```
 
   Turn off the backlight pin if one was defined during init.
 
-- `sleep_mode(value)`
+- ```python
+  sleep_mode(value)
+  ```
 
   If value is True, cause the display to enter sleep mode, otherwise wake up if value is False. During sleep display content may not be preserved.
 
 
-- `fill(color)`
+- ```python
+  fill(color)
+  ```
 
   Fill the display with the specified color.
 
-- `pixel(x, y, color)`
+- ```python
+  pixel(x, y, color)
+  ```
 
   Set the specified pixel to the given `color`.
 
-- `line(x0, y0, x1, y1, color)`
+- ```python
+  line(x0, y0, x1, y1, color)
+  ```
 
   Draws a single line with the provided `color` from (`x0`, `y0`) to
   (`x1`, `y1`).
 
-- `hline(x, y, length, color)`
+- ```python
+  hline(x, y, length, color)
+  ```
 
   Draws a single horizontal line with the provided `color` and `length`
   in pixels. Along with `vline`, this is a fast version with fewer SPI calls.
 
-- `vline(x, y, length, color)`
+- ```python
+  vline(x, y, length, color)
+  ```
 
   Draws a single horizontal line with the provided `color` and `length`
   in pixels.
 
-- `rect(x, y, width, height, color)`
+- ```python
+  rect(x, y, width, height, color)
+  ```
 
   Draws a rectangle from (`x`, `y`) with corresponding dimensions
 
-- `fill_rect(x, y, width, height, color)`
+- ```python
+  fill_rect(x, y, width, height, color)
+  ```
 
   Fill a rectangle starting from (`x`, `y`) coordinates
 
-- `circle(x, y, r, color)`
+- ```python
+  circle(x, y, r, color)
+  ```
 
   Draws a circle with radius `r` centered at the (`x`, `y`) coordinates in the given
   `color`.
 
-- `fill_circle(x, y, r, color)`
+- ```python
+  fill_circle(x, y, r, color)
+  ```
 
   Draws a filled circle with radius `r` centered at the (`x`, `y`) coordinates
   in the given `color`.
 
-- `blit_buffer(buffer, x, y, width, height)`
+- ```python
+  blit_buffer(buffer, x, y, width, height)
+  ```
+  
 
   Copy bytes() or bytearray() content to the screen internal memory. Note:
   every color requires 2 bytes in the array
