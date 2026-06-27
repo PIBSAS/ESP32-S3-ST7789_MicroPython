@@ -18,16 +18,23 @@ configuration modules for various devices and displays.
 
 
 ## bitmap_fonts.py
-
+    Required font: fonts/bitmap/vga.py, fonts/bitmap/vga_16.py, fonts/bitmap/vga_bold_16.py, fonts/bitmap/vga_bold_32.py
     Cycles through all characters of four bitmap fonts on the display
 
-## chango.py
 
+## chango/chango.py
+    Requireed fonts: chango_16.py, chango_32.py, chango_64.py
     Proportional font test for font2bitmap converter.
 
 
-## clock.py
-
+## clock/clock.py
+    Requireed:
+    - font: pacifico40.py
+    - tft_buttons.py
+    - images: 
+        - Landscape: clock/clock_320x170/nasaNN.jpg all images in the folder
+        - Portrait: clock/clock_170x320/nasaNN.jpg all images in the folder
+    
     Displays a clock over a background image on the display.
 
     The buttons on the module can be used to set the time.
@@ -41,6 +48,19 @@ configuration modules for various devices and displays.
     http://scripts.sil.org/OFL
 
 
+## clock/nasa_images.py
+    Requireed:
+    - images: 
+        - Landscape: clock/clock_320x170/nasaNN.jpg all images in the folder
+        - Portrait: clock/clock_170x320/nasaNN.jpg all images in the folder
+    
+    Display a series of NASA images on the display from the
+    nasa_WIDTHxHEIGHT/ folder.
+
+    Images courtesy of the NASA image and video gallery available at
+    https://images.nasa.gov/
+
+
 ## feathers.py
 
     Smoothly scroll rainbow-colored mirrored random curves across the display.
@@ -48,46 +68,119 @@ configuration modules for various devices and displays.
 
 ## hello.py
 
+    Required font: vga2_bold_16x32.py
     Writes "Hello!" in random colors at random locations on the display.
 
 
+## tiny_hello.py
+
+    Required font: vga1_8x8.py
+    Writes "Hello!" in random colors at random locations on the display.
+
+
+## hola.py
+
+    Required font: vga2_bold_16x32.py
+    Writes "Hola!" in random colors at random locations on the display.
+
+    
 ## hershey.py
 
+    Required font already included on firware: greeks, italicc, italiccs, meteo, romanc, romancs, romand, romanp, romans, scriptc, scripts
     Demo program that draws greetings on display cycling thru hershey fonts and colors.
 
-## jpg.py
 
+## jpg/jpg.py
+
+    Required:
+    - images:
+        - Landscape: jpg/bigbuckbunny-320x170.jpg
+        - Portrait: jpg/bigbuckbunny-170x320.jpg
+    
     Draw a full screen jpg using the slower but less memory intensive method of blitting
     each Minimum Coded Unit (MCU) block. Usually 8×8pixels but can be other multiples of 8.
 
     bigbuckbunny.jpg (c) copyright 2008, Blender Foundation / www.bigbuckbunny.org
 
 
-### mono_fonts.py
+## jpg/alien.py
+
+    Required:
+        - image: alien.jpg
+    
+    Randomly draw alien.jpg with alpha-channel masking
+
+    The alien.png is from the Erik Flowers Weather Icons available from
+    https://github.com/erikflowers/weather-icons and is licensed under
+    SIL OFL 1.1
+
+
+## png/png.py
+
+    Required:
+    - images:
+        - Landscape: png/bigbuckbunny-320x170.png
+        - Portrait: png/bigbuckbunny-170x320.png
+
+    Draw a full screen png.
+
+    bigbuckbunny.png (c) copyright 2008, Blender Foundation / www.bigbuckbunny.org
+
+
+## png/png_bounce.py
+
+    Required:
+    - image: alien.png
+    
+    Bounce a png around the display to test png decoder and visibility clipping.
+
+
+## png/alien.py
+
+    Required:
+    - image: alien.png
+    
+    Randomly draw alien.png with alpha-channel masking
+
+    The alien.png is from the Erik Flowers Weather Icons available from
+    https://github.com/erikflowers/weather-icons and is licensed under
+    SIL OFL 1.1
+
+
+## png/logo.py
+
+    Required:
+    - images: 
+        - Landscape: png/logo-widthxheight.png all images in the folder
+
+    Draw different sized png MicroPython logos to test the png decoder and clipping. 
+    Copy the png logo files to the same directory as this file.
+
+    The MicroPython logo is copyright George Robotics Ltd.
+
+
+### mono/mono_fonts.py
+    
+    Required fonts: inconsolata_16, inconsolata_32, inconsolata_64.py
+    
     mono_fonts.py test for monofont2bitmap converter and bitmap method. This is the older method of
     converting monofonts to bitmaps.  See the newer method in prop_fonts/chango.py that works with
     mono and proportional fonts using the write method.
 
 
-## noto_fonts.py
+## noto/noto_fonts.py
 
+    Required fonts: NotoSans.py, NotoSerif.py, NotoSansMono.py
+    
     Writes the names of three Noto fonts centered on the display
     using the font. The fonts were converted from True Type fonts using
     the font2bitmap utility.
 
 
-## paint.py
-
-    A very simple paint program for the TTGO T-Watch-2020
-    using the adafruit_focaltouch driver modified for micropython by franz
-    schaefer from https://gitlab.com/mooond/t-watch2020-esp32-with-micropython
-    See the lib directory for the focaltouch and axp202c drivers.
-
-    https://www.youtube.com/watch?v=O_lDBnvH1Sw
-
-
 ## pinball.py
 
+    Required: fonts= vga1_8x8.py, vga1_bold_16x32.py and tft_buttons.py
+    
     Minimal pinball game in MicroPython based on code from Ten Minute Physics Tutorial
     "How to write a pinball simulation"
 
@@ -99,29 +192,26 @@ configuration modules for various devices and displays.
         https://youtu.be/y0B3i_UmEU8
 
 
-## proverbs.py
-
-    Displays what I hope are chinese proverbs in simplified chinese to test UTF-8 font support.
-
 ## roids.py
 
+    Required: tft_buttons.py
+    
     Asteroids style game demo using polygons.
 
 
 ## scroll.py
 
+    Required font: vga1_bold_16x16.py
+    
     Smoothly scroll all characters of a font up the display.
     Fonts heights must be even multiples of the screen height (i.e. 8 or 16 pixels high).
 
 
-## tbbunny.py
-
-    Reads, decodes and displays movie frames from individual JPG's stored on a SD Card. See https://github.com/russhughes/TinyBigBuckBunny for JPG's.
-
-
 ## tiny_toasters.py
 
-    Flying Tiny Toasters for smaller displays (like the ST7735)
+    Required: tiny_toasters/ttoast_bitmaps.py
+    
+    Flying Tiny Toasters for smaller displays (like the ST7735) Adapted to 1.9" st7789
 
     Uses spritesheet from CircuitPython_Flying_Toasters pendant project
     https://learn.adafruit.com/circuitpython-sprite-animation-pendant-mario-clouds-flying-toasters
@@ -132,6 +222,8 @@ configuration modules for various devices and displays.
 
 ## toasters.py
 
+    Required: toasters/toast_bitmaps.py
+    
     Flying Toasters
 
     Uses spritesheet from CircuitPython_Flying_Toasters pendant project
@@ -143,6 +235,8 @@ configuration modules for various devices and displays.
 
 ## toasters_jpg.py
 
+    Required: toasters_jpg/toaster.jpg
+    
     An example using a jpg sprite map to draw sprites on T-Display.  This is an older version of the
     toasters.py and tiny_toasters example.  It uses the jpg_decode() method to grab a bitmap of each
     sprite from the toaster.jpg sprite sheet.
@@ -155,6 +249,11 @@ configuration modules for various devices and displays.
 
 ## watch.py
 
+    Required:
+    - images:
+        - Landscape: watch/face_320x170.jpg
+        - Portrait: watch/face_170x320.jpg
+    
     Analog Watch Display using jpg for the face and filled polygons for the hands
     Requires face_{width}x{height}.jpg in the same directory as this script. See the create_face.py
     script for creating a face image for a given sized display.
@@ -164,8 +263,10 @@ configuration modules for various devices and displays.
 
 # Utility Programs
 
-## cfg_helper.py
+## utils/cfg_helper.py
 
+    Required font: vga1_8x8.PY
+    
     Utility to help with determining colstarts, rowstarts, color_order and inversion settings for
     for a display.
 
@@ -214,3 +315,230 @@ configuration modules for various devices and displays.
     Once you have determined the colstart and rowstart values for the rotations you are going to
     use, press the {Pp} key to print the current configuration values. You can use these values to
     support a display that does not work with the default values.
+
+## utils/codeformat.py
+
+## utils/create_face_jpg.py
+
+    Required font: utils/LibreBaskerville-Regular.ttf
+    
+    Create a watch face_{width}x{height}.jpg file for a given width and height.
+
+
+## utils/font2bitmap.py
+
+    Font handling classes are from Dan Bader blog post on using freetype http://dbader.org/blog/monochrome-font-rendering-with-freetype-and-python
+
+
+## utils/font_from_romfont.py
+
+    Convert fonts from the font-bin directory of spacerace's https://github.com/spacerace/romfont repo.
+
+    Reads all romfont bin files from the specified -input-directory (-i) and writes
+    python font files to the specified -output-directory (-o).  Optionally limiting
+    characters included to -first-char (-f) thru -last-char (-l).
+    
+    Example:
+    
+        font_from_romfont -i font-bin -o pyfont -f 32 -l 127
+    
+    requires argparse
+
+
+## utils/hershey_to_poly.py
+
+    Required: utils/arial.ttf
+
+
+## utils/hershey_to_py.py
+
+    Convert Hershey font data to python module.
+    
+    Usage: hershey_to_py.py <glyph_file> [map_file]
+    
+    The glyph_file (hf) is the Hershey font data file. The map_file (hmp) is an optional file that maps
+    the Hershey font data to a character set.  The hershey_to_py.py script is compatible with the output
+    from my fork of LingDong's ttf2hershey python2 program available from my github repository at
+    https://github.com/russhughes/ttf2hershey.  Not all TrueType fonts can be converted. Some may
+    result in a font with out-of-order or missing characters.
+    
+    A Hershey font file is a text file with the following format:
+    
+    Optional header lines:
+    
+    # WIDTH = 40        width of the font
+    # HEIGHT = 45       height of the font
+    # FIRST = 32        first character in the font
+    # LAST = 127        last character in the font
+    
+    Comment lines start with a # and are ignored with the exception of the optional header lines.
+    
+    Glyph data lines have the following format:
+    
+    Bytes 1-5:  The character number
+    Bytes 6-8:  The number of vector pairs in the glyph
+    Bytes   9:  left hand position
+    Bytes  10:  right hand position
+    Bytes  11+: The vector data as a string of characters, 2 characters per vector.
+    
+    Vector values are relative to the ascii value of 'R'. A value of " R" non-drawing move to operation.
+    
+    Example:
+    
+       45  6JZLBXBXFLFLB
+    
+        Character number: 45 (ASCII '-')
+        Number of vectors: 6
+        Left hand position: J (ascii value 74 - 82 = -8)
+        Right hand position: Z (ascii value 90 - 82 = 8)
+        Vector data: LBXBXFLFLB
+    
+        The vector data is interpreted as follows:
+    
+            LB - Line to (-6, -16)
+            XB - Line to (6, -16)
+            XF - Line to (6, -12)
+            LF - Line to (-6, -12)
+            LB - Line to (-6, -16)
+    
+    
+    A Hershey Map file is a text file with the following format:
+    
+    Comment lines start with a # and are ignored.
+    
+    Map data lines have the following format:
+    
+    Number of the first glyph to include in the font followed by space and the number of the last glyph
+    in the font.  If the last glyph is 0 then only the first glyph is included.
+    
+    Example:
+    
+    32 64
+    65 127
+
+## utils/howto-convert-to-jpg
+
+    You can convert images to compatible jpg's by using ImageMagick's convert
+    utility by specifying the output type as TrueColor. ImageMagick downloads
+    are available from https://imagemagick.org/ for Linux, OSX, Windows and
+    other operating systems.
+    
+    The wi-alien.svg icon is from https://github.com/erikflowers/weather-icons licensed under SIL OFL 1.1
+        
+    - convert wi-alien.svg -type TrueColor alien.jpg
+
+
+## utils/image_to.py
+
+    Require:
+    - libcairo-2.dll
+    
+    You can install with winget:
+    - winget install tschoonj.GTKForWindows
+    
+    After install, close all terminals and start again the python virtual environment
+    Now will find the .dll needed by cairosvg package
+
+    Convert images to PNG or JPG from SVG > PNG > JPG > JPEG for differents resolutions:
+    64x64, 128x128, 240x240, 80x160, 160x80, 128x160, 160x128, 135x240, 240x135, 170x320, 320x170, 172x320, 320x172, 240x320, 320x240, 320x480, 480x320
+
+    Saving to a folder with resolution name and the images added the resolution to the name.
+
+
+## utils/image_to_v2.py
+    Require:
+    - libcairo-2.dll
+    
+    You can install with winget:
+    - winget install tschoonj.GTKForWindows
+    
+    After install, close all terminals and start again the python virtual environment
+    Now will find the .dll needed by cairosvg package
+
+    Convert images to PNG or JPG from SVG > PNG > JPG > JPEG for differents resolutions:
+    64x64, 128x128, 240x240, 80x160, 160x80, 128x160, 160x128, 135x240, 240x135, 170x320, 320x170, 172x320, 320x172, 240x320, 320x240, 320x480, 480x320
+    
+    Saving to a folder with resolution name, with image with his namme.
+
+
+## utils/imgtobitmap.py
+
+    Convert image file to python module for use with blit_bitmap.
+
+    Usage imgtobitmap image_file bits_per_pixel >image.py
+
+
+## utils/jpg_converter.py
+
+    The folder saving resized images have the name clock_320x172
+    Which is made by PATH+WIDTH+HEIGHT
+    
+    The image have a name nasaNN.jpg where NN are numbers from 01 to MAX
+    Which is made by NAME+01 to MAX.jpg
+    
+    QUALITY is the JPEG QUALITY
+    
+    PUT SOURCE IMAGES IN THE SAME PATH OF THIS SCRIPT
+
+
+## utils/maketoast
+
+    grab sprites from spritesheet using ImageMagick and convert to bitmap format.
+
+## utils/monofont2bitmap.py
+
+    Convert characters from monospace truetype fonts to a python bitmap
+        for use with the bitmap method in the st7789 and ili9342 drivers.
+    
+    positional arguments:
+    
+      font_file             Name of font file to convert.
+      font_size             Size of font to create bitmaps from.
+      bits_per_pixel        The number of bits (1..8) to use per pixel.
+    
+    optional arguments:
+    
+      -h, --help            show this help message and exit
+      -f FOREGROUND, --foreground FOREGROUND
+                            Foreground color of characters.
+      -b BACKGROUND, --background BACKGROUND
+                            Background color of characters.
+    
+    character selection:
+      Characters from the font to include in the bitmap.
+    
+      -c CHARACTERS, --characters CHARACTERS
+                            integer or hex character values and/or ranges to
+                            include.
+    
+                            For example: "65, 66, 67" or "32-127" or
+                            "0x30-0x39, 0x41-0x5a"
+    
+      -s STRING, --string STRING
+                            String of characters to include For example:
+                            "1234567890-."
+
+
+## utils/png_from_font.py
+
+    Imports all the python font files from the specified -input-directory (-i) and
+    creates png samples of each font in the specified -output-directory (-o).
+    
+    Example:
+        png_from_font.py font_directory png_directory
+    
+    Requires argparse, importlib and pypng
+
+## utils/sprites2bitmap.py
+
+    Convert a sprite sheet image to python a module for use with indexed bitmap method.
+    Sprite sheet width and height should be a multiple of sprite width and height. There
+    should be no extra pixels between sprites. All sprites will share the same palette.
+
+    Usage:
+        sprites2bitmap image_file spite_width sprite_height bits_per_pixel  >sprites.py
+
+    MicroPython:
+        import sprites
+        ... tft config and init code ...
+        tft.bitmap(sprites, x, y, index)
