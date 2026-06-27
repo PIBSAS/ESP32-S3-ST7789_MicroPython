@@ -35,18 +35,6 @@ Folder          | Device
 --------------- | ------------------------------------------------------------------
 esp32s3-N16R8   | ESP32 S3 WROOM-1 N16R8 st7789 1.9" IPS RGB Module 170x320 Display
 
-----
-
-# Button Modules
-
-These following folders contain `buttons.py` config modules that are used by the `roids.py` example program to configure the buttons.
-
-Folder          | Device
---------------- | ------------------------------------------------------------------
-esp32s3-N16R8   | ESP32 S3 WROOM-1 N16R8 st7789 1.9" IPS RGB Module 170x320 Display
-
-----
-
 # 1,9" IPS Module SPI 170x320 (RGB) Pinout:
 
 | Nombre normal |	Nombre en tabla	| Pin J3 & J1 (No.)	| Pin Name |
@@ -59,6 +47,27 @@ esp32s3-N16R8   | ESP32 S3 WROOM-1 N16R8 st7789 1.9" IPS RGB Module 170x320 Disp
 | DC            | --------------- |  6                | GPIO  6  |
 | CS            | FSPICS0	        | 16	              | GPIO 10  |
 | BLK           | --------------- |  2                | GPIO  4  |
+
+----
+
+# Button Modules
+
+These following folders contain `buttons.py` config modules that are used by the `roids.py` example program to configure the buttons.
+
+Folder          | Device
+--------------- | ------------------------------------------------------------------
+esp32s3-N16R8   | ESP32 S3 WROOM-1 N16R8 st7789 1.9" IPS RGB Module 170x320 Display
+
+# TFT_BUTTONS Pinout:
+- Name: `esp32s3-n16r8`
+
+| Nombre normal | Pin J3 & J1 (No.)	| Pin Name |
+|---------------|-------------------|----------|
+| left          |  8                | GPIO 15  |
+| right         |  9                | GPIO 16  |
+| hyper         | 10                | GPIO 17  |
+| thrust        | 11	              | GPIO 18  |
+| fire          | 27                | GPIO 21  |
 
 ----
 
