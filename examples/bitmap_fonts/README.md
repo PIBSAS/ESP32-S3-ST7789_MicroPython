@@ -2,7 +2,7 @@
 
 ## Required fonts:
   - [vga.py](../../fonts/bitmap/vga.py)
-  - [vga16.py](../../fonts/bitmap/vga16.py)
+  - [vga8x16.py](../../fonts/bitmap/vga8x16.py)
   - [vgabold16.py](../../fonts/bitmap/vgabold16.py)
   - [vgabold32.py](../../fonts/bitmap/vgabold32.py)
 
