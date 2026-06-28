@@ -1,5 +1,10 @@
 """
-roids.py - Asteroids style game demo using polygons.
+roids.py
+
+    Required:
+    - Button's module already in the firmwaare: tft_buttons.py
+    
+    Asteroids style game demo using polygons.
 """
 
 import math
