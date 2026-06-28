@@ -1,6 +1,12 @@
 """
 noto_fonts.py 
 
+    Required fonts:
+    
+    - NotoSans_32.py
+    - NotoSerif_32.py
+    - NotoSansMono_32.py
+    
     Writes the names of three Noto fonts centered on the display
     using the font. The fonts were converted from True Type fonts using
     the font2bitmap utility.
