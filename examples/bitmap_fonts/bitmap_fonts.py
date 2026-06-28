@@ -3,9 +3,9 @@ bitmap_fonts.py
 
     Required font:
     - fonts/bitmap/vga.py
-    - fonts/bitmap/vga8x16.py
-    - fonts/bitmap/vgabold16.py
-    - fonts/bitmap/vgabold16x32.py
+    - fonts/bitmap/vga_8x16.py
+    - fonts/bitmap/vga_bold_16.py
+    - fonts/bitmap/vga_bold_16x32.py
 
     Cycles through all characters of four bitmap fonts on the display
 
@@ -15,9 +15,9 @@ import time
 import st7789
 import tft_config
 import vga as font1
-import vga8x16 as font2
-import vgabold16 as font3
-import vgabold16x32 as font4
+import vga_8x16 as font2
+import vga_bold_16 as font3
+import vga_bold_16x32 as font4
 
 
 tft = tft_config.config(0)
