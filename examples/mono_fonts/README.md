@@ -1,4 +1,4 @@
-##mono_fonts.py
+# mono_fonts.py
 
 ## Required fonts:
 
