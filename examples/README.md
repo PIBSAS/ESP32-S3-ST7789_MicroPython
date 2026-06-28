@@ -20,10 +20,10 @@ file.  Not doing so will cause the ESP32 to crash if you use a baudrate that is 
 ## bitmap_fonts/bitmap_fonts.py
 
 - Required fonts:
-    - [fonts/bitmap/vga.py](../fonts/bitmap/vga.py)
-    - [fonts/bitmap/vga16.py](../fonts/bitmap/vga16.py)
-    - [fonts/bitmap/vgabold16.py](../fonts/bitmap/vgabold16.py)
-    - [fonts/bitmap/vgabold32.py](../fonts/bitmap/vgabold32.py)
+    - [vga.py](../fonts/bitmap/vga.py)
+    - [vga8x16.py](../fonts/bitmap/vga8x16.py)
+    - [vgabold16.py](../fonts/bitmap/vgabold16.py)
+    - [vgabold16x32.py](../fonts/bitmap/vgabold16x32.py)
 
 Cycles through all characters of four bitmap fonts on the display.
 
