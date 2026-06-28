@@ -1,5 +1,13 @@
 """
-mono_fonts.py test for monofont2bitmap converter and bitmap method. This is the older method of
+mono_fonts.py
+
+Required fonts:
+
+- inconsolata_16.py
+- inconsolata_32.py
+- inconsolata_64.py
+
+Test for monofont2bitmap converter and bitmap method. This is the older method of
 converting monofonts to bitmaps.  See the newer method in prop_fonts/chango.py that works with
 mono and proportional fonts using the write method.
 """
