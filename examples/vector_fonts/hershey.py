@@ -1,8 +1,22 @@
 """
 hershey.py
 
+    Required fonts, already on firmware:
+        - greeks
+        - italicc
+        - italiccs
+        - meteo
+        - romanc
+        - romancs
+        - romand
+        - romanp
+        - romans
+        - scriptc
+        - scripts
+
     Demo program that draws greetings on display cycling thru hershey fonts and colors.
 
+    Vector fonts use draw method.
 """
 
 import random
