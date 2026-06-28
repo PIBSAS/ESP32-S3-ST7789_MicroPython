@@ -6,20 +6,26 @@ configuration modules for various devices and displays.
 
 ***Special Note for ESP32 devices:***
 
-    To use SPI baudrates above 26.6MHz you must use my firmware or modify the micropython
-    source code to increase the SPI baudrate limit by adding SPI_DEVICE_NO_DUMMY to the
-    .flag member of the spi_device_interface_config_t struct in the machine_hw_spi_init_internal.c
-    file.  Not doing so will cause the ESP32 to crash if you use a baudrate that is too high.
+To use SPI baudrates above 26.6MHz you must use my firmware or modify the micropython
+source code to increase the SPI baudrate limit by adding `SPI_DEVICE_NO_DUMMY` to the
+`.flag member` of the `spi_device_interface_config_t struct` in the `machine_hw_spi_init_internal.c`
+file.  Not doing so will cause the ESP32 to crash if you use a baudrate that is too high.
 
 
 ## bitarray.py
 
-    An example using map_bitarray_to_rgb565 to draw sprites
+- An example using `map_bitarray_to_rgb565` to draw sprites
 
 
 ## bitmap_fonts.py
-    Required font: fonts/bitmap/vga.py, fonts/bitmap/vga_16.py, fonts/bitmap/vga_bold_16.py, fonts/bitmap/vga_bold_32.py
-    Cycles through all characters of four bitmap fonts on the display
+
+- Required font:
+    - [fonts/bitmap/vga.py](../fonts/bitmap/vga.py)
+    - [fonts/bitmap/vga16.py](../fonts/bitmap/vga16.py)
+    - [fonts/bitmap/vgabold16.py](../fonts/bitmap/vgabold16.py)
+    - [fonts/bitmap/vgabold32.py](../fonts/bitmap/vgabold32.py)
+
+Cycles through all characters of four bitmap fonts on the display
 
 
 ## chango/chango.py
