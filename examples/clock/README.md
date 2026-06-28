@@ -12,10 +12,12 @@ This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:
 http://scripts.sil.org/OFL
 
-## Required font:
+## Required:
 
-- [pacifico_40.py](../../fonts/truetype/pacifico_40.py)
-
+- font: [pacifico_40.py](../../fonts/truetype/pacifico_40.py)
+- Folders:
+  - Landscape: [clock_320x170](/examples/clock/)
+- Optional but already in the firmware, [tft_buttons.py](/configs/esp32s3-N16R8/tft_buttons.py)
 ----
 
 ### PACIFICO 40 font:
