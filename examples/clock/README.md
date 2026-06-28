@@ -25,3 +25,17 @@ http://scripts.sil.org/OFL
 ![Image](/docs/pacifico_40.png)
 
 ----
+
+# nasa_images.py
+
+## Requireed:
+
+- images: 
+    - Landscape: [clock_320x170/nasaNN.jpg](/examples/clock_320x170/) all images in the folder
+    - Portrait: [clock_170x320/nasaNN.jpg](/examples/clock_170x320/) all images in the folder
+
+Display a series of NASA images on the display from the
+`nasa_WIDTHxHEIGHT/` folder.
+
+Images courtesy of the NASA image and video gallery available at
+[https://images.nasa.gov/](https://images.nasa.gov/)
