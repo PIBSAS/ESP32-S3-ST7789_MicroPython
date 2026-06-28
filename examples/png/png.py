@@ -17,7 +17,7 @@ def main():
     '''
 
     tft.init()
-    png_file_name = f'bigbuckbunny-{tft.width()}x{tft.height()}.png'
+    png_file_name = f'bunny/bigbuckbunny-{tft.width()}x{tft.height()}.png'
     print(f'Displaying {png_file_name}')
     tft.png(png_file_name, 0, 0)
 
