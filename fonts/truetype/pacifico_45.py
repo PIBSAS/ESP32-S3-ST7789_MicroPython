@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-# Converted from Pacifico-Regular.ttf using:
-#     ../../utils/font2bitmap.py -s '0123456789:. ' Pacifico-Regular.ttf 45
+# Converted from .\Pacifico-Regular.ttf using:
+#     font2bitmap.py '.\Pacifico-Regular.ttf' 45 -s '0123456789:. ' -o pacifico_45.png -py pacifico_45.py
+# Valid characters: 13
 
 MAP = (
     '0123456789:. '
