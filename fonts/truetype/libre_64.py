@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Converted from .\LibreBaskerville-Regular.ttf using:
-#     font2bitmap.py '.\LibreBaskerville-Regular.ttf' 64 -c 0-255 -o libre64.png -py libre64.py
+#     font2bitmap.py '.\LibreBaskerville-Regular.ttf' 64 -c 0-255 -o libre_64.png -py libre_64.py
 # Valid characters: 190
 
 MAP = (
