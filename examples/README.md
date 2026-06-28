@@ -41,8 +41,8 @@ Proportional font test for font2bitmap converter.
 ## clock/clock.py
 
 Required:
-- font: pacifico40.py
-- tft_buttons.py
+- font: [pacifico_40.py](/fonts/truetype/pacifico_40.py)
+- [tft_buttons.py](/configs/ess3tft_buttons.py)
 - images: 
     - Landscape: clock/clock_320x170/nasaNN.jpg all images in the folder
     - Portrait: clock/clock_170x320/nasaNN.jpg all images in the folder
