@@ -9,20 +9,20 @@ Proportional font test for [font2bitmap](../../utils/font2bitmap.py) converter.
 
 TrueType fonts use `write` method.
 
-### CHANGO REGULAR 16px by 16px font:
+### CHANGO REGULAR 17px by 22px font:
 
-![Image](/docs/chango_16.png)
-
-----
-
-### CHANGO REGULAR 32px by 32px font:
-
-![Image](/docs/chango_32.png)
+![Image](/docs/chango16.png)
 
 ----
 
-### CHANGO REGULAR 64px by 64px font:
+### CHANGO REGULAR 34px by 35px font:
 
-![Image](/docs/chango_64.png)
+![Image](/docs/chango32.png)
+
+----
+
+### CHANGO REGULAR 66px by 89px font:
+
+![Image](/docs/chango64.png)
 
 ----
