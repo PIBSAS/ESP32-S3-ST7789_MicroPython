@@ -1,4 +1,5 @@
-# hershey.py Vector fonts
+# hershey.py 
+  Vector fonts
 
 
 ## Required fonts, already on firmware:
