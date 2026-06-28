@@ -20,10 +20,10 @@ file.  Not doing so will cause the ESP32 to crash if you use a baudrate that is 
 ## bitmap_fonts/bitmap_fonts.py
 
 - Required fonts:
-    - [vga.py](../fonts/bitmap/vga.py)
-    - [vga8x16.py](../fonts/bitmap/vga8x16.py)
-    - [vgabold16.py](../fonts/bitmap/vgabold16.py)
-    - [vgabold16x32.py](../fonts/bitmap/vgabold16x32.py)
+    - [vga.py](/fonts/bitmap/vga.py)
+    - [vga_8x16.py](/fonts/bitmap/vga_8x16.py)
+    - [vga_bold_16.py](/fonts/bitmap/vga_bold_16.py)
+    - [vga_bold_16x32.py](/fonts/bitmap/vga_bold_16x32.py)
 
 Cycles through all characters of four bitmap fonts on the display.
 
@@ -31,9 +31,9 @@ Cycles through all characters of four bitmap fonts on the display.
 ## chango_fonts/chango.py
 
 - Required fonts:
-    - [chango_16.py](../fonts/bitmap/chango_16.py)
-    - [chango_32.py](../fonts/bitmap/chango_16.py)
-    - [chango_64.py](../fonts/bitmap/chango_16.py)
+    - [chango_16.py](/fonts/bitmap/chango_16.py)
+    - [chango_32.py](/fonts/bitmap/chango_16.py)
+    - [chango_64.py](/fonts/bitmap/chango_16.py)
 
 Proportional font test for font2bitmap converter.
 
@@ -45,12 +45,12 @@ Displays a clock over a background image on the display.
 The `tft_buttons.py` on the module can be used to set the time.
 
 Background images courtesy of the NASA image and video gallery available at
-https://images.nasa.gov/
+[https://images.nasa.gov/](https://images.nasa.gov/)
 
-The Font is Copyright 2018 The Pacifico Project Authors (https://github.com/googlefonts/Pacifico)
+The Font is Copyright 2018 The Pacifico Project Authors [https://github.com/googlefonts/Pacifico](https://github.com/googlefonts/Pacifico)
+
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
-This license is copied below, and is also available with a FAQ at:
-http://scripts.sil.org/OFL
+This license is copied below, and is also available with a FAQ at: http://scripts.sil.org/OFL
 
 Required:
 
@@ -63,113 +63,132 @@ Required:
 ## clock/nasa_images.py
 
 Requireed:
-- images: 
-    - Landscape: clock/clock_320x170/nasaNN.jpg all images in the folder
-    - Portrait: clock/clock_170x320/nasaNN.jpg all images in the folder
 
-Display a series of NASA images on the display from the
-nasa_WIDTHxHEIGHT/ folder.
+- images: 
+    - Landscape: [clock_320x170/nasaNN.jpg](/examples/clock_320x170/) all images in the folder
+    - Portrait: [clock_170x320/nasaNN.jpg](/examples/clock_170x320/) all images in the folder
+
+Display a series of NASA images on the display from the `nasa_WIDTHxHEIGHT/` folder.
 
 Images courtesy of the NASA image and video gallery available at
-https://images.nasa.gov/
+[https://images.nasa.gov/](https://images.nasa.gov/)
 
 
 ## feathers.py
 
-    Smoothly scroll rainbow-colored mirrored random curves across the display.
+Smoothly scroll rainbow-colored mirrored random curves across the display.
 
 
 ## hello.py
 
-    Required font: vga2_bold_16x32.py
-    Writes "Hello!" in random colors at random locations on the display.
+Required font: 
+
+- [vga2_bold_16x32.py](/fonts/bitmaps/vga2_bold_16x32.py)
+
+Writes "Hello!" in random colors at random locations on the display with 16px by 32 px bold font.
 
 
 ## tiny_hello.py
 
-    Required font: vga1_8x8.py
-    Writes "Hello!" in random colors at random locations on the display.
+Required font:
+- [vga.py](/fonts/bitmaps/vga.py)
+
+Writes "Hello!" in random colors at random locations on the display with 8px by 8 px font.
 
 
 ## hola.py
 
-    Required font: vga2_bold_16x32.py
-    Writes "Hola!" in random colors at random locations on the display.
+Required font: 
+- [vga2_bold_16x32.py](/fonts/bitmaps/vga2_bold_16x32.py)
+
+Writes "Hola!" in random colors at random locations on the display with 16px by 32 px bold font.
 
     
-## hershey.py
+## vector_fonts/hershey.py
 
-    Required font already included on firware: greeks, italicc, italiccs, meteo, romanc, romancs, romand, romanp, romans, scriptc, scripts
-    Demo program that draws greetings on display cycling thru hershey fonts and colors.
+Required fonts, already on firmware:
+  - [greeks](../../fonts/vector/greeks.py)
+  - [italicc](../../fonts/vector/italicc.py)
+  - [italiccs](../../fonts/vector/italiccs.py)
+  - [meteo](../../fonts/vector/meteo.py)
+  - [romanc](../../fonts/vector/romanc.py)
+  - [romancs](../../fonts/vector/romancs.py)
+  - [romand](../../fonts/vector/romand.py)
+  - [romanp](../../fonts/vector/romanp.py)
+  - [romans](../../fonts/vector/romans.py)
+  - [scriptc](../../fonts/vector/scriptc.py)
+  - [scripts](../../fonts/vector/scripts.py)
+
+Demo program that draws greetings on display cycling thru hershey fonts and colors.
+
+Vector fonts use `draw` method.
 
 
 ## jpg/jpg.py
 
-    Required:
-    - images:
-        - Landscape: jpg/bigbuckbunny-320x170.jpg
-        - Portrait: jpg/bigbuckbunny-170x320.jpg
-    
-    Draw a full screen jpg using the slower but less memory intensive method of blitting
-    each Minimum Coded Unit (MCU) block. Usually 8×8pixels but can be other multiples of 8.
+Required:
+- images:
+    - Landscape: [jpg/bigbuckbunny-320x170.jpg](/examples/jpg/bigbuckbunny-320x170.jpg)
+    - Portrait: [jpg/bigbuckbunny-170x320.jpg](/examples/jpg/bigbuckbunny-170x320.jpg)
 
-    bigbuckbunny.jpg (c) copyright 2008, Blender Foundation / www.bigbuckbunny.org
+Draw a full screen jpg using the slower but less memory intensive method of blitting
+each Minimum Coded Unit (MCU) block. Usually 8×8pixels but can be other multiples of 8.
+
+bigbuckbunny.jpg (c) copyright 2008, Blender Foundation / [www.bigbuckbunny.org](https://www.bigbuckbunny.org)
 
 
 ## jpg/alien.py
 
-    Required:
-        - image: alien.jpg
-    
-    Randomly draw alien.jpg with alpha-channel masking
+Required:
+    - image: [alien.jpg](/examples/jpg/alien.jpg)
 
-    The alien.png is from the Erik Flowers Weather Icons available from
-    https://github.com/erikflowers/weather-icons and is licensed under
-    SIL OFL 1.1
+Randomly draw `alien.jpg` with alpha-channel masking.
+
+The `alien.jpg` is from the Erik Flowers Weather Icons available from
+[https://github.com/erikflowers/weather-icons](https://github.com/erikflowers/weather-icons) and is licensed under SIL OFL 1.1
 
 
 ## png/png.py
 
-    Required:
-    - images:
-        - Landscape: png/bigbuckbunny-320x170.png
-        - Portrait: png/bigbuckbunny-170x320.png
+Required:
+- images:
+    - Landscape: [png/bigbuckbunny-320x170.png](/examples/png/bigbuckbunny-320x170.png)
+    - Portrait: [png/bigbuckbunny-170x320.png](/examples/png/bigbuckbunny-170x320.png)
 
-    Draw a full screen png.
+Draw a full screen png.
 
-    bigbuckbunny.png (c) copyright 2008, Blender Foundation / www.bigbuckbunny.org
+bigbuckbunny.png (c) copyright 2008, Blender Foundation / [www.bigbuckbunny.org](https://www.bigbuckbunny.org)
 
 
 ## png/png_bounce.py
 
-    Required:
-    - image: alien.png
-    
-    Bounce a png around the display to test png decoder and visibility clipping.
+Required:
+- image: [alien.png](/examples/png/alien.png)
+
+Bounce a png around the display to test png decoder and visibility clipping.
 
 
 ## png/alien.py
 
-    Required:
-    - image: alien.png
-    
-    Randomly draw alien.png with alpha-channel masking
+Required:
+- image: [alien.png](/examples/png/alien.png)
 
-    The alien.png is from the Erik Flowers Weather Icons available from
-    https://github.com/erikflowers/weather-icons and is licensed under
-    SIL OFL 1.1
+Randomly draw `alien.pn`g with alpha-channel masking
+
+The `alien.png` is from the Erik Flowers Weather Icons available from
+[https://github.com/erikflowers/weather-icons](https://github.com/erikflowers/weather-icons) and is licensed under SIL OFL 1.1
 
 
 ## png/logo.py
 
-    Required:
-    - images: 
-        - Landscape: png/logo-widthxheight.png all images in the folder
+Required:
+- images: 
+    - Landscape: [png/logo/logo-widthxheight.png](/examples/png/logo/) all images in the folder
 
-    Draw different sized png MicroPython logos to test the png decoder and clipping. 
-    Copy the png logo files to the same directory as this file.
+Draw different sized png MicroPython logos to test the png decoder and clipping. 
+Copy the png logo files to the same directory as this file.
 
-    The MicroPython logo is copyright George Robotics Ltd.
+The MicroPython logo is copyright George Robotics Ltd.
 
 
 ## mono/mono_fonts.py
