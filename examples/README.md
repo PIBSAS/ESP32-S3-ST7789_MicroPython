@@ -39,24 +39,25 @@ Proportional font test for font2bitmap converter.
 
 
 ## clock/clock.py
-    Requireed:
-    - font: pacifico40.py
-    - tft_buttons.py
-    - images: 
-        - Landscape: clock/clock_320x170/nasaNN.jpg all images in the folder
-        - Portrait: clock/clock_170x320/nasaNN.jpg all images in the folder
-    
-    Displays a clock over a background image on the display.
 
-    The buttons on the module can be used to set the time.
+Required:
+- font: pacifico40.py
+- tft_buttons.py
+- images: 
+    - Landscape: clock/clock_320x170/nasaNN.jpg all images in the folder
+    - Portrait: clock/clock_170x320/nasaNN.jpg all images in the folder
 
-    Background images courtesy of the NASA image and video gallery available at
-    https://images.nasa.gov/
+Displays a clock over a background image on the display.
 
-    The Font is Copyright 2018 The Pacifico Project Authors (https://github.com/googlefonts/Pacifico)
-    This Font Software is licensed under the SIL Open Font License, Version 1.1.
-    This license is copied below, and is also available with a FAQ at:
-    http://scripts.sil.org/OFL
+The buttons on the module can be used to set the time.
+
+Background images courtesy of the NASA image and video gallery available at
+https://images.nasa.gov/
+
+The Font is Copyright 2018 The Pacifico Project Authors (https://github.com/googlefonts/Pacifico)
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
 
 
 ## clock/nasa_images.py
