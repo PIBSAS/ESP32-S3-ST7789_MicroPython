@@ -1,5 +1,12 @@
 """
-chango.py proportional font test for font2bitmap converter.
+chango.py
+
+    Required fonts:
+    - chango_16.py
+    - chango_32.py
+    - chango_64.py
+    
+    Proportional font test for font2bitmap converter.
 """
 
 import time
