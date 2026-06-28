@@ -19,7 +19,7 @@ def main():
     '''
 
     tft.init()
-    tft.jpg(f'bigbuckbunny-{tft.width()}x{tft.height()}.jpg', 0, 0, st7789.SLOW)
+    tft.jpg(f'buck/bigbuckbunny-{tft.width()}x{tft.height()}.jpg', 0, 0, st7789.SLOW)
 
 
 main()
