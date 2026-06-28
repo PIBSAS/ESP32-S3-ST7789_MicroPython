@@ -38,7 +38,7 @@ def main():
 
     for width, height in LOGOS:
         tft.fill(st7789.BLACK)
-        png_file_name = f'logo-{width}x{height}.png'
+        png_file_name = f'logo/logo-{width}x{height}.png'
         start = ticks_ms()
         tft.png(png_file_name, 0, 0)
         print(f'Displaying {png_file_name} took {ticks_ms() - start}ms')
