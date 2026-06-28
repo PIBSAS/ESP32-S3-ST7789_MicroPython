@@ -1,14 +1,16 @@
 # bitmap_fonts.py
 
 ## Required fonts:
-  - [vga.py](../../fonts/bitmap/vga.py)
-  - [vga8x16.py](../../fonts/bitmap/vga8x16.py)
-  - [vgabold16.py](../../fonts/bitmap/vgabold16.py)
-  - [vgabold16x32.py](../../fonts/bitmap/vgabold16x32.py)
+  - [vga.py](/fonts/bitmap/vga.py)
+  - [vga_8x16.py](/fonts/bitmap/vga_8x16.py)
+  - [vga_bold_16.py](/fonts/bitmap/vga_bold_16.py)
+  - [vga_bold_16x32.py](/fonts/bitmap/vga_bold_16x32.py)
 
 Cycles through all characters of four bitmap fonts on the display.
 
 Bitmap fonts use `text` method.
+
+----
 
 ### VGA 8px by 8px font:
 
