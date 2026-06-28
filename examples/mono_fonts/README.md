@@ -11,3 +11,21 @@ converting monofonts to bitmaps. See the newer method in `chango_fonts/chango.py
 mono and proportional fonts using the `write` method.
 
 TrueType fonts use `write` method.
+
+### INCONSOLATA 16px by 16px font:
+
+![Image](/docs/inconsolata_16.png)
+
+----
+
+### INCONSOLATA 32px by 32px font:
+
+![Image](/docs/inconsolata_32.png)
+
+----
+
+### INCONSOLATA 64px by 64px font:
+
+![Image](/docs/inconsolata_64.png)
+
+----
