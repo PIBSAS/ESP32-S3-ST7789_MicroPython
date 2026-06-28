@@ -19,7 +19,7 @@ file.  Not doing so will cause the ESP32 to crash if you use a baudrate that is 
 
 ## bitmap_fonts/bitmap_fonts.py
 
-- Required font:
+- Required fonts:
     - [fonts/bitmap/vga.py](../fonts/bitmap/vga.py)
     - [fonts/bitmap/vga16.py](../fonts/bitmap/vga16.py)
     - [fonts/bitmap/vgabold16.py](../fonts/bitmap/vgabold16.py)
@@ -28,9 +28,14 @@ file.  Not doing so will cause the ESP32 to crash if you use a baudrate that is 
 Cycles through all characters of four bitmap fonts on the display.
 
 
-## chango/chango.py
-    Requireed fonts: chango_16.py, chango_32.py, chango_64.py
-    Proportional font test for font2bitmap converter.
+## chango_fonts/chango.py
+
+- Required fonts:
+    - [chango_16.py](../fonts/bitmap/chango_16.py)
+    - [chango_32.py](../fonts/bitmap/chango_16.py)
+    - [chango_64.py](../fonts/bitmap/chango_16.py)
+
+Proportional font test for font2bitmap converter.
 
 
 ## clock/clock.py
