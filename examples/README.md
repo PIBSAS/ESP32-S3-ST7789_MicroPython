@@ -17,7 +17,7 @@ file.  Not doing so will cause the ESP32 to crash if you use a baudrate that is 
 - An example using `map_bitarray_to_rgb565` to draw sprites
 
 
-## bitmap_fonts.py
+## bitmap_fonts/bitmap_fonts.py
 
 - Required font:
     - [fonts/bitmap/vga.py](../fonts/bitmap/vga.py)
@@ -25,7 +25,7 @@ file.  Not doing so will cause the ESP32 to crash if you use a baudrate that is 
     - [fonts/bitmap/vgabold16.py](../fonts/bitmap/vgabold16.py)
     - [fonts/bitmap/vgabold32.py](../fonts/bitmap/vgabold32.py)
 
-Cycles through all characters of four bitmap fonts on the display
+Cycles through all characters of four bitmap fonts on the display.
 
 
 ## chango/chango.py
