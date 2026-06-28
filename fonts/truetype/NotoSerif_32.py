@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Converted from .\NotoSerif-Regular.ttf using:
-#     font2bitmap.py '.\NotoSerif-Regular.ttf' 32 -c 0-255 -o NotoSerif32.png -py NotoSerif32.py
+#     font2bitmap.py '.\NotoSerif-Regular.ttf' 32 -c 0-255 -o NotoSerif_32.png -py NotoSerif_32.py
 # Valid characters: 190
 
 MAP = (
