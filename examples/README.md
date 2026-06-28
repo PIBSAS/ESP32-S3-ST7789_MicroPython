@@ -416,6 +416,8 @@ Create a watch `face_{width}x{height}.jpg` file for a given `width` and `height`
 
 Font handling classes are from Dan Bader blog post on using freetype [https://dbader.org/blog/monochrome-font-rendering-with-freetype-and-python](https://dbader.org/blog/monochrome-font-rendering-with-freetype-and-python)
 
+Upgrade to save image table of valid characteres.
+
 Example:
 
 ```python
