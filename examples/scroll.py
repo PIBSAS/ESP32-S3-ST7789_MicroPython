@@ -1,15 +1,16 @@
 """
 scroll.py
 
-    Smoothly scroll all characters of a font up the display.
-    Fonts heights must be even multiples of the screen height
-    (i.e. 8 or 16 pixels high).
+    Required font:
+    - vga_bold_16.py
+    
+    Smoothly scroll all characters of a font up the display. Fonts heights must be even multiples of the screen height (i.e. 8 or 16 pixels high).
 """
 
 import time
 import st7789
 import tft_config
-import vga1_bold_16x16 as font
+import vga_bold_16x16 as font
 
 
 tft = tft_config.config(0)
