@@ -170,13 +170,17 @@ Proportional font test for font2bitmap converter.
     The MicroPython logo is copyright George Robotics Ltd.
 
 
-### mono/mono_fonts.py
-    
-    Required fonts: inconsolata_16, inconsolata_32, inconsolata_64.py
-    
-    mono_fonts.py test for monofont2bitmap converter and bitmap method. This is the older method of
-    converting monofonts to bitmaps.  See the newer method in prop_fonts/chango.py that works with
-    mono and proportional fonts using the write method.
+## mono/mono_fonts.py
+
+### Required fonts:
+
+- [inconsolata_16.py](../fonts/bitmap/inconsolata_16.py)
+- [inconsolata_32.py](../fonts/bitmap/inconsolata_32.py)
+- [inconsolata_64.py](../fonts/bitmap/inconsolata_64.py)
+
+Test for `monofont2bitmap` converter and `bitmap` method. This is the older method of
+converting monofonts to bitmaps. See the newer method in `chango_fonts/chango.py` that works with
+mono and proportional fonts using the `write` method.
 
 
 ## noto/noto_fonts.py
