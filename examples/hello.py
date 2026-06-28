@@ -1,7 +1,10 @@
 """
 hello.py
 
-    Writes "Hello!" in random colors at random locations on the display.
+   Required font:
+   - vga2_bold_16x32.py
+   
+   Writes "Hello!" in random colors at random locations on the display with 16px by 32 px bold font.
 """
 
 import random
