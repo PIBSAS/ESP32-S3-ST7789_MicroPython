@@ -8,9 +8,9 @@ noto_fonts.py
 
 import st7789
 import tft_config
-import NotoSans as noto_sans
-import NotoSerif as noto_serif
-import NotoSansMono as noto_mono
+import NotoSans_32 as noto_sans
+import NotoSerif_32 as noto_serif
+import NotoSansMono_32 as noto_mono
 
 
 tft = tft_config.config(1, buffer_size=16*32*2)
