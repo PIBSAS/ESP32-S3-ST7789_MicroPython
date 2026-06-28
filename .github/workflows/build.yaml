@@ -73,11 +73,9 @@ jobs:
       - name: Add ST7789
         run: |
           mkdir -p micropython/ports/esp32/modules
-          cp examples/configs/esp32s3-N16R8/tft_config.py micropython/ports/esp32/modules/
-          cp examples/configs/esp32s3-N16R8/tft_buttons.py micropython/ports/esp32/modules/
-          cp fonts/vector/*.py micropython/ports/esp32/modules/
-          cp fonts/bitmap/*.py micropython/ports/esp32/modules/
-          cp fonts/truetype/*.py micropython/ports/esp32/modules/
+          cp configs/esp32s3-N16R8/tft_config.py micropython/ports/esp32/modules/
+          cp configs/esp32s3-N16R8/tft_buttons.py micropython/ports/esp32/modules/
+          cp fonts/vector/*.py micropython/ports/esp32/modules/        
           echo "freeze('modules', '*.py')" >> micropython/ports/esp32/manifest.py
           
       - name: Build mpy-cross and ESP32-S3 port
