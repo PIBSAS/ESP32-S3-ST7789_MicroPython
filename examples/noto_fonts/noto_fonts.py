@@ -1,14 +1,16 @@
 """
-noto_fonts Writes the names of three Noto fonts centered on the display
+noto_fonts.py 
+
+    Writes the names of three Noto fonts centered on the display
     using the font. The fonts were converted from True Type fonts using
     the font2bitmap utility.
 """
 
 import st7789
 import tft_config
-import NotoSans_32 as noto_sans
-import NotoSerif_32 as noto_serif
-import NotoSansMono_32 as noto_mono
+import NotoSans as noto_sans
+import NotoSerif as noto_serif
+import NotoSansMono as noto_mono
 
 
 tft = tft_config.config(1, buffer_size=16*32*2)
