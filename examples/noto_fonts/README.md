@@ -12,19 +12,19 @@ the [font2bitmap](../../utils/font2bitmap.py) utility.
 
 TrueType fonts use `write` method.
 
-### NOTO SANS REGULAR 32px by 32px font:
+### NOTO SANS 32 font:
 
 ![Image](/docs/NotoSans_32.png)
 
 ----
 
-### NOTO SERIF REGULAR 32px by 32px font:
+### NOTO SERIF 32 font:
 
 ![Image](/docs/NotoSerif_32.png)
 
 ----
 
-### NOTO SANS MONO REGULAR 32px by 32px font:
+### NOTO SANS MONO 32 font:
 
 ![Image](/docs/NotoSansMono_32.png)
 
