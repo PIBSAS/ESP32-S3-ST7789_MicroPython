@@ -12,19 +12,19 @@ mono and proportional fonts using the `write` method.
 
 TrueType fonts use `write` method.
 
-### INCONSOLATA 16px by 16px font:
+### INCONSOLATA 16 font:
 
 ![Image](/docs/inconsolata_16.png)
 
 ----
 
-### INCONSOLATA 32px by 32px font:
+### INCONSOLATA 32 font:
 
 ![Image](/docs/inconsolata_32.png)
 
 ----
 
-### INCONSOLATA 64px by 64px font:
+### INCONSOLATA 64 font:
 
 ![Image](/docs/inconsolata_64.png)
 
