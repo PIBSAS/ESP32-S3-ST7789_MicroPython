@@ -1,12 +1,12 @@
 # ESP32 S3 WROOM-1 N16R8 16MB PSRAM 8MB Pinout:
 
 <div align="center">
-  <img src="../../docs/ESP32-S3-16MB-PSRAM-8MB.png" alt="ESP32 S3 WROOM-1 N16R8 16MB FLASH PSRAM 8MB">
+  <img src="/docs/ESP32-S3-16MB-PSRAM-8MB.png" alt="ESP32 S3 WROOM-1 N16R8 16MB FLASH PSRAM 8MB">
 </div>
 
 <div align="center">
   <ul>
-    <a href="../../docs/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf" target="_blank">ESP32 S3 WROOM-1 Datasheet</a>
+    <a href="/docs/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf" target="_blank">ESP32 S3 WROOM-1 Datasheet</a>
     <br>
     <a href="https://documentation.espressif.com/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.1.html" target="_blank">ESP32 S3 WROOM-1 Docs</a>
   </ul>
@@ -75,13 +75,13 @@ esp32s3-N16R8   | ESP32 S3 WROOM-1 N16R8 st7789 1.9" IPS RGB Module 170x320 Disp
   <table>
     <tr>
       <td>
-        <a href="../../docs/ESP32-S3_DevKitC-1_pinlayout_v1.1.jpg" target="_blank">
-          <img src="../../docs/ESP32-S3_DevKitC-1_pinlayout_v1.1.jpg" width="100%">
+        <a href="/docs/ESP32-S3_DevKitC-1_pinlayout_v1.1.jpg" target="_blank">
+          <img src="/docs/ESP32-S3_DevKitC-1_pinlayout_v1.1.jpg" width="100%">
         </a>
       </td>
       <td>
-        <a href="../../docs/MSP1901.png" target="_blank">
-          <img src="../../docs/MSP1901.png" width="100%">
+        <a href="/docs/MSP1901.png" target="_blank">
+          <img src="/docs/MSP1901.png" width="100%">
         </a>
       </td>
     </tr>
@@ -95,8 +95,8 @@ esp32s3-N16R8   | ESP32 S3 WROOM-1 N16R8 st7789 1.9" IPS RGB Module 170x320 Disp
 ----
 
 <div align="left">
-    <a href="../../docs/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf" target="_blank">
-      <img src="../../docs/esp32-s3-wroom-1_wroom-1u_datasheet_en.webp" width="40%">
+    <a href="/docs/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf" target="_blank">
+      <img src="/docs/esp32-s3-wroom-1_wroom-1u_datasheet_en.webp" width="40%">
     </a>
 </div>
 
@@ -107,8 +107,8 @@ esp32s3-N16R8   | ESP32 S3 WROOM-1 N16R8 st7789 1.9" IPS RGB Module 170x320 Disp
 ----
 
 <div align="left">
-    <a href="../../docs/esp32-s3_Series_datasheet_en.pdf" target="_blank">
-      <img src="../../docs/esp32-s3_Series_datasheet_en.webp" width="40%">
+    <a href="/docs/esp32-s3_Series_datasheet_en.pdf" target="_blank">
+      <img src="/docs/esp32-s3_Series_datasheet_en.webp" width="40%">
     </a>
 </div>
 
@@ -119,8 +119,8 @@ esp32s3-N16R8   | ESP32 S3 WROOM-1 N16R8 st7789 1.9" IPS RGB Module 170x320 Disp
 ----
 
 <div align="left">
-    <a href="../../docs/esp32-s3_technical_reference_manual_en.pdf" target="_blank">
-      <img src="../../docs/esp32-s3_technical_reference_manual_en.webp" width="40%">
+    <a href="/docs/esp32-s3_technical_reference_manual_en.pdf" target="_blank">
+      <img src="/docs/esp32-s3_technical_reference_manual_en.webp" width="40%">
     </a>
 </div>
 
@@ -131,8 +131,8 @@ esp32s3-N16R8   | ESP32 S3 WROOM-1 N16R8 st7789 1.9" IPS RGB Module 170x320 Disp
 ----
 
 <div align="left">
-    <a href="../../docs/esp-hardware-design-guidelines-en-master-esp32s3.pdf" target="_blank">
-      <img src="../../docs/esp-hardware-design-guidelines-en-master-esp32s3.webp" width="40%">
+    <a href="/docs/esp-hardware-design-guidelines-en-master-esp32s3.pdf" target="_blank">
+      <img src="/docs/esp-hardware-design-guidelines-en-master-esp32s3.webp" width="40%">
     </a>
 </div>
 
