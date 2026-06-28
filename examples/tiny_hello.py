@@ -1,14 +1,17 @@
 """
 hello.py
 
-    Writes "Hello!" in random colors at random locations on the display.
+    Required font:
+    - vga.py
+    
+    Writes "Hello!" in random colors at random locations on the display with 8px by 8 px font.
 """
 
 import random
 import time
 import st7789
 import tft_config
-import vga1_8x8 as font
+import vga as font
 
 tft = tft_config.config(0)
 
