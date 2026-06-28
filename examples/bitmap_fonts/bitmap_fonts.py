@@ -1,5 +1,11 @@
 """
-fonts.py
+bitmap_fonts.py
+
+    Required font:
+    - fonts/bitmap/vga.py
+    - fonts/bitmap/vga16.py
+    - fonts/bitmap/vgabold16.py
+    - fonts/bitmap/vgabold32.py
 
     Cycles through all characters of four bitmap fonts on the display
 
@@ -8,10 +14,10 @@ fonts.py
 import time
 import st7789
 import tft_config
-import vga1_8x8 as font1
-import vga1_8x16 as font2
-import vga1_bold_16x16 as font3
-import vga1_bold_16x32 as font4
+import vga as font1
+import vga8x16 as font2
+import vgabold16 as font3
+import vgabold_16x32 as font4
 
 
 tft = tft_config.config(0)
