@@ -4,7 +4,7 @@
   - [vga.py](../../fonts/bitmap/vga.py)
   - [vga8x16.py](../../fonts/bitmap/vga8x16.py)
   - [vgabold16.py](../../fonts/bitmap/vgabold16.py)
-  - [vgabold32.py](../../fonts/bitmap/vgabold32.py)
+  - [vgabold16x32.py](../../fonts/bitmap/vgabold16x32.py)
 
 Cycles through all characters of four bitmap fonts on the display.
 
