@@ -10,6 +10,121 @@ import freetype
 from PIL import Image, ImageDraw, ImageFont
 import os
 
+UNICODE_BLOCKS = {
+
+    "greek": {
+        "title": "Greek",
+        "ranges": [
+            (0x0370, 0x03FF),
+        ]
+    },
+
+    "math": {
+        "title": "Mathematical Operators",
+        "ranges": [
+            (0x2200, 0x22FF),
+            (0x27C0, 0x27EF),
+            (0x2980, 0x29FF),
+        ]
+    },
+
+    "superscripts": {
+        "title": "Superscripts",
+        "ranges": [
+            (0x2070, 0x209F),
+        ]
+    },
+
+    "currency": {
+        "title": "Currency Symbols",
+        "ranges": [
+            (0x20A0, 0x20CF),
+        ]
+    },
+
+    "arrows": {
+        "title": "Arrows",
+        "ranges": [
+            (0x2190, 0x21FF),
+        ]
+    },
+
+    "box": {
+        "title": "Box Drawing",
+        "ranges": [
+            (0x2500, 0x257F),
+        ]
+    },
+
+    "block": {
+        "title": "Block Elements",
+        "ranges": [
+            (0x2580, 0x259F),
+        ]
+    },
+
+    "geometric": {
+        "title": "Geometric Shapes",
+        "ranges": [
+            (0x25A0, 0x25FF),
+        ]
+    },
+
+    "misc": {
+        "title": "Miscellaneous Symbols",
+        "ranges": [
+            (0x2600, 0x26FF),
+        ]
+    },
+
+    "latin": {
+        "title": "Basic Latin",
+        "ranges": [
+            (0x0020, 0x007F),
+            (0x00A0, 0x00FF),
+            (0x0100, 0x017F),
+            (0x0180, 0x024F),
+        ]
+    },
+
+    "cyrillic": {
+        "title": "Cyrillic",
+        "ranges": [
+            (0x0400, 0x04FF),
+            (0x0500, 0x052F),
+        ]
+    },
+    "ipa_extensions": {
+        "title": "IPA Extensions",
+        "ranges": [
+            (0x0250, 0x02AF),
+        ]
+    },
+    "spacing_modifier": {
+        "title": "Spacing Modifier Letters",
+        "ranges": [
+            (0x02B0, 0x02FF),
+        ]
+    },
+    "combining_diacritics": {
+        "title": "Combining Diacritical Marks",
+        "ranges": [
+            (0x0300, 0x036F),
+        ]
+    },
+    "greek_extended": {
+        "title": "Greek Extended",
+        "ranges": [
+            (0x1F00, 0x1FFF),
+        ]
+    },
+    "general_punctuation": {
+        "title": "General Punctuation",
+        "ranges": [
+            (0x2000, 0x206F),
+        ]
+    }
+}
 
 def to_int(string):
     """ Return integer value from a hex or decimal string"""
@@ -127,6 +242,7 @@ class Glyph():
 class Font():
     def __init__(self, filename, width, height):
         self.face = freetype.Face(filename)
+        print(f"Font contains {self.face.num_glyphs} glyphs.")
         self.face.set_pixel_sizes(width, height)
         self.font_filename = filename
         self.font_size = height
@@ -134,8 +250,79 @@ class Font():
     def glyph_for_character(self, char):
         self.face.load_char(
             char, freetype.FT_LOAD_RENDER | freetype.FT_LOAD_TARGET_MONO)
+
         return Glyph.from_glyphslot(self.face.glyph)
 
+    def get_all_characters(self):
+        """Return every Unicode character present in the font cmap."""
+        chars = []
+
+        charcode, glyph = self.face.get_first_char()
+
+        while glyph:
+            chars.append(chr(charcode))
+            charcode, glyph = self.face.get_next_char(charcode, glyph)
+
+        return ''.join(chars)
+
+    def get_characters_from_blocks(self, block_names):
+
+        chars = []
+
+        for block in block_names:
+
+            block = block.lower().strip()
+
+            if block not in UNICODE_BLOCKS:
+                print(f"Unknown block: {block}")
+                continue
+
+            for first, last in UNICODE_BLOCKS[block]:
+
+                for code in range(first, last + 1):
+
+                    if self.face.get_char_index(code):
+
+                        chars.append(chr(code))
+
+        return ''.join(chars)
+
+    def print_unicode_coverage(self):
+
+        print("\n============= UNICODE COVERAGE =============")
+
+        for key, block in UNICODE_BLOCKS.items():
+
+            total = 0
+            found = 0
+
+            for first, last in block["ranges"]:
+
+                total += last - first + 1
+
+                for code in range(first, last + 1):
+
+                    if self.face.get_char_index(code):
+                        found += 1
+
+            percent = found * 100 / total
+
+            print(f"{block['title']:<28} {found:>4} / {total:<4} ({percent:5.1f}%)")
+
+        print("============================================\n")
+
+    def print_statistics(self, requested, exported):
+        """Print font statistics."""
+
+        print("\n================ FONT STATISTICS ================")
+        print(f"Font file           : {os.path.basename(self.font_filename)}")
+        print(f"Glyphs in font      : {self.face.num_glyphs}")
+        print(f"Requested chars     : {requested}")
+        print(f"Exported chars      : {exported}")
+        print(f"Bitmap size         : {self.face.size.x_ppem} x {self.face.size.y_ppem}")
+        print("=================================================\n")
+
+    
     def get_valid_characters(self, text):
         """
         Return only characters that have valid glyphs in the font.
@@ -153,7 +340,8 @@ class Font():
             try:
                 # Get the glyph index - if it's 0, it's the .notdef glyph
                 glyph_index = self.face.get_char_index(ord(char))
-                
+
+                # Reemplazado
                 if glyph_index != 0:
                     # Render to check if it has pixels
                     self.face.load_char(char, freetype.FT_LOAD_RENDER | freetype.FT_LOAD_TARGET_MONO)
@@ -175,6 +363,12 @@ class Font():
                         invalid_count += 1
                 else:
                     invalid_count += 1
+                # Reemplazado por:
+                #if glyph_index:
+                #    valid.append(char)
+                #else:
+                #    invalid_count += 1
+            
             except:
                 invalid_count += 1
                 continue
@@ -213,20 +407,37 @@ class Font():
             print("Error: No valid characters found")
             return
 
+        # Filter to only characters in 0x00-0xFF range
+        table_chars = []
+        extended_count = 0
+
+        for char in valid_text:
+            code = ord(char)
+
+            if code <= 0xFF:
+                table_chars.append(char)
+            else:
+                extended_count += 1
+
+        if extended_count > 0:
+            print(f"Note: {extended_count} characters > 0xFF are not shown in table (use --cat for full catalog)")
+
         # Create a 16x16 grid (0x00 to 0xFF)
-        # Row index = high nibble (0-15), Col index = low nibble (0-15)
         grid = [[None for _ in range(16)] for _ in range(16)]
-        
+                
         # Get glyphs and place them in the correct position
         char_glyphs = {}
         max_width = 0
         max_height = 0
-        
-        for char in valid_text:
+            
+        for char in table_chars:
             code = ord(char)
             row = code >> 4      # High nibble (0-15)
             col = code & 0x0F    # Low nibble (0-15)
-            
+
+            # Safety check
+            if row >= 16 or col >= 16:
+                continue
             glyph = self.glyph_for_character(char)
             char_glyphs[char] = glyph
             grid[row][col] = char
@@ -245,7 +456,6 @@ class Font():
 
         # Image dimensions - 16 columns, 16 rows (0x00-0xFF)
         chars_per_row = 16
-        total_rows = 16  # 0x00 to 0xFF
         
         # We'll only show rows that have at least one valid character
         # But we need to keep the hex positions correct
@@ -261,7 +471,7 @@ class Font():
         if not rows_with_chars:
             print("Error: No valid characters found in display range")
             return
-
+        
         # Image dimensions
         padding = max(10, self.font_size // 3)
         header_height = max(30, self.font_size + 8)
@@ -269,7 +479,7 @@ class Font():
         footer_height = max(35, self.font_size + 10)
 
         total_width = padding + row_label_width + (chars_per_row * cell_size) + padding
-        total_height = padding + header_height + (len(rows_with_chars) * cell_size) + padding + footer_height
+        total_height = (padding + header_height + (len(rows_with_chars) * cell_size) + padding + footer_height)
 
         # Create image
         img = Image.new('RGB', (total_width, total_height), color='lightyellow')
@@ -287,11 +497,13 @@ class Font():
         # Border
         draw.rectangle([0, 0, total_width-1, total_height-1], outline='black', width=2)
 
+        y_offset = padding
+        
         # Grid lines
-        draw.line([padding, padding + header_height, total_width - padding, padding + header_height], 
-                  fill='lightgrey', width=1)
-        draw.line([padding + row_label_width, padding, padding + row_label_width, total_height - padding - footer_height], 
-                  fill='lightgrey', width=1)
+        draw.line([padding, y_offset + header_height, total_width - padding, y_offset + header_height], 
+                  fill='lightgrey', width=2)
+        draw.line([padding + row_label_width, y_offset, padding + row_label_width, total_height - padding - footer_height], 
+                  fill='lightgrey', width=2)
 
         # "hex" label
         draw.text((padding + 5, padding + 5), "hex", fill='black', font=label_font)
@@ -307,7 +519,7 @@ class Font():
 
         # Row headers (2x, 3x, 4x, ..., Fx)
         for row_idx, row_num in enumerate(rows_with_chars):
-            y = padding + header_height + row_idx * cell_size + cell_size // 2
+            y = y_offset + header_height + row_idx * cell_size + cell_size // 2
             label = f"{row_num:x}x"
             bbox = draw.textbbox((0, 0), label, font=label_font)
             text_width = bbox[2] - bbox[0]
@@ -322,7 +534,7 @@ class Font():
                     continue  # Empty cell for invalid character
                     
                 x = padding + row_label_width + col * cell_size + cell_size // 2
-                y = padding + header_height + row_idx * cell_size + cell_size // 2
+                y = y_offset + header_height + row_idx * cell_size + cell_size // 2
 
                 glyph = char_glyphs.get(char)
                 if glyph and glyph.width > 0 and glyph.height > 0:
@@ -335,11 +547,12 @@ class Font():
                                 glyph_pixels[j, i] = 0
 
                     x_offset = x - glyph.width // 2
-                    y_offset = y - glyph.height // 2
-                    img.paste(glyph_img, (x_offset, y_offset))
+                    y_offset_glyph = y - glyph.height // 2
+                    img.paste(glyph_img, (x_offset, y_offset_glyph))
+
 
         # Info text
-        info_text = f"DEC = (row x 16) + column | Max Height: {max_height} Width: {max_width} | Total: {len(valid_text)} valid characters"
+        info_text = f"DEC = (row x 16) + column | Max Height: {max_height} Width: {max_width} | Total: {len(valid_text)} valid characters | Basic: {len(table_chars)}"
         try:
             bbox = draw.textbbox((0, 0), info_text, font=label_font)
             info_x = total_width - padding - bbox[2] - 10
@@ -351,14 +564,154 @@ class Font():
             draw.text((info_x, info_y), info_text, fill='black', font=label_font)
 
         img.save(output_file)
-        print(f"\nImage saved to: {output_file}")
+        print(f"\nTable image saved to: {output_file}")
         print(f"Size: {total_width}x{total_height} pixels")
         print(f"Valid characters: {len(valid_text)}")
+        print(f"Characters shown: {len(table_chars)} (0x00-0xFF range)")
+        if extended_count > 0:
+            print(f"Characters >0xFF not shown: {extended_count} (use --cat for catalog)")
         print(f"Max glyph: {max_width}x{max_height}")
         print(f"Cell size: {cell_size}x{cell_size}")
         print(f"Rows shown: {len(rows_with_chars)} (from {rows_with_chars[0]:x}x to {rows_with_chars[-1]:x}x)")
 
         return img
+
+    def generate_catalog_image(self, valid_text, output_file):
+        """Generate a complete visual catalog of the font."""
+
+        print("Generating font catalog...")
+
+        # Group characters by Unicode blocks
+        blocks_found = {}
+
+        for char in valid_text:
+
+            code = ord(char)
+
+            for block_name, block_data in UNICODE_BLOCKS.items():
+                if any(first <= code <= last for first, last in block_data["ranges"]):
+                    blocks_found.setdefault(block_name, []).append(char)
+                    break
+        print()
+        print("\nDEBUG BLOCK COUNTS (sorted):")
+        for k, v in sorted(blocks_found.items(), key=lambda x: len(x[1]), reverse=True):
+            print(k, len(v))
+            
+        for block_name in blocks_found:
+
+            title = UNICODE_BLOCKS[block_name]["title"]
+
+            print(f"{title:<30} : {len(blocks_found[block_name])} characters")
+
+        # ---------------- IMAGE SETUP ----------------
+
+        padding = max(10, self.font_size // 3)
+        glyph_area = int(self.font_size * 1.4)
+        text_area = self.font_size // 2 + 6
+        cell_height = glyph_area + text_area + 6
+        row_spacing = 2
+        cell_width = max(self.font_size + 12, 28)
+        title_height = self.font_size + 12
+        char_info_height = 10
+
+        # estimate total height first
+        total_height = padding
+
+        for block_name in blocks_found:
+            chars = blocks_found[block_name]
+            rows = (len(chars) + 15) // 16  # 16 columns per row
+
+            total_height += title_height
+            total_height += rows * cell_height
+            total_height += padding
+
+        # fixed width (16 columns)
+        row_label_width = 40
+        total_width = padding + row_label_width + (16 * cell_width) + padding
+
+        # create image
+        img = Image.new("RGB", (total_width, total_height), "white")
+        draw = ImageDraw.Draw(img)
+
+        # font for labels
+        try:
+            label_font = ImageFont.truetype(
+                "C:/Windows/Fonts/arial.ttf",
+                max(10, self.font_size // 2)
+            )
+        except:
+            label_font = ImageFont.load_default()
+        
+        # ---------------- DRAW CONTENT ----------------
+
+        y_cursor = padding
+        x_start = padding + row_label_width
+
+        for block_name in blocks_found:
+
+            title = UNICODE_BLOCKS[block_name]["title"]
+            chars = blocks_found[block_name]
+
+            # ---- draw title ----
+            draw.text((padding, y_cursor), title, fill="black", font=label_font)
+
+            y_cursor += title_height
+
+            col = 0
+            row = 0
+
+            for char in chars:
+
+                glyph = self.glyph_for_character(char)
+
+                glyph_img = Image.new("L", (glyph.width, glyph.height), 255)
+                glyph_pixels = glyph_img.load()
+
+                for i in range(glyph.height):
+                    for j in range(glyph.width):
+                        if glyph.bitmap.pixels[i * glyph.width + j]:
+                            glyph_pixels[j, i] = 0
+
+                x = x_start + col * cell_width
+                y = y_cursor + row * cell_height
+
+                x_offset = x + (cell_width - glyph.width) // 2
+                y_offset = y + max(0, (glyph_area - glyph.height) // 2)
+
+                img.paste(glyph_img, (x_offset, y_offset))
+
+                # draw unicode label under glyph
+                code = f"{ord(char):04X}"
+
+                bbox = draw.textbbox((0, 0), code, font=label_font)
+                text_width = bbox[2] - bbox[0]
+
+                text_x = x + (cell_width - text_width) // 2
+                text_y = y + glyph_area + 2
+
+                draw.text((text_x, text_y), code, fill="gray", font=label_font)
+
+                col += 1
+                
+                if col >= 16:
+                    col = 0
+                    row += 1
+                    
+
+            # move cursor down after block
+            y_cursor += (row + 1) * cell_height + padding + (row_spacing * (row + 1))
+
+
+        # border
+        draw.rectangle([0, 0, total_width-1, total_height-1], outline="black", width=2)
+
+        # ---------------- SAVE IMAGE ----------------
+
+        img.save(output_file)
+
+        print(f"\nCatalog image saved to: {output_file}")
+        print(f"Size: {total_width} x {total_height}")
+        print(f"Blocks: {len(blocks_found)}")
 
     def write_python(self, valid_text, font_file, output_py=None):
         """Write Python module with ONLY valid characters - using UTF-8"""
@@ -479,6 +832,12 @@ def main():
         default=None,
         help='output Python module filename (default: fontname.py)')
 
+    parser.add_argument(
+        '--cat',
+        action='store_true',
+        help='generate catalog image instead of table image (saves as *catalogo.png)'
+    )
+    
     group = parser.add_argument_group(
         'character selection',
         'characters from the font to include in the bitmap.')
@@ -494,32 +853,82 @@ def main():
         help='''string of characters to include
         For example: "1234567890-."''')
 
+    excl.add_argument(
+        '-a', '--all',
+        action='store_true',
+        help='include every Unicode character present in the font')
+
+    excl.add_argument(
+        "--blocks",
+        metavar="LIST",
+        help="""Unicode blocks separated by commas.
+    Available blocks:
+      latin
+      greek
+      math
+      superscripts
+      currency
+      arrows
+      box
+      block
+      geometric
+      misc
+
+    Example:
+      --blocks latin,greek,math
+    """)
+    
     args = parser.parse_args()
     font_file = args.font_file
     height = args.font_height
     width = args.font_height if args.font_width is None else args.font_width
     
-    all_chars = get_chars(args.characters) if args.string is None else args.string
-    print(f"Requested characters: {len(all_chars)}")
+    #all_chars = get_chars(args.characters) if args.string is None else args.string
+    #print(f"Requested characters: {len(all_chars)}")
 
     fnt = Font(font_file, width, height)
+
+    if args.all:
+        all_chars = fnt.get_all_characters()
+    elif args.blocks:
+        all_chars = fnt.get_characters_from_blocks(args.blocks.split(","))
+    elif args.characters:
+        all_chars = get_chars(args.characters)
+    else:
+        all_chars = args.string
+
+    print(f"Requested characters: {len(all_chars)}")
     
     # Filter to only valid characters
     valid_text = fnt.get_valid_characters(all_chars)
     print(f"Valid characters found: {len(valid_text)}")
+
+    fnt.print_statistics(
+        requested=len(all_chars),
+        exported=len(valid_text)
+    )
+
+    fnt.print_unicode_coverage()
     
     if not valid_text:
         print("Error: No valid characters found in font")
         sys.exit(1)
 
-    # Generate table image
-    fnt.generate_table_image(valid_text, args.output_image)
-
-    # Generate Python module
+    # Determinar nombres de archivo
     if args.output_py is None:
         base_name = os.path.splitext(os.path.basename(font_file))[0]
         args.output_py = f"{base_name}.py"
-    
+
+    # Generar la tabla SIEMPRE (por defecto)
+    fnt.generate_table_image(valid_text, args.output_image)
+
+    # Si se especifica --cat, generar también el catálogo
+    if args.cat:
+        base, ext = os.path.splitext(args.output_image)
+        catalog_output = f"{base}_catalogo{ext}"
+        fnt.generate_catalog_image(valid_text, catalog_output)
+
+    # Generar Python module
     fnt.write_python(valid_text, font_file, args.output_py)
 
 
