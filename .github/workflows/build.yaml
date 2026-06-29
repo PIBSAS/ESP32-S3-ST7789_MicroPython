@@ -75,7 +75,21 @@ jobs:
           mkdir -p micropython/ports/esp32/modules
           cp configs/esp32s3-N16R8/tft_config.py micropython/ports/esp32/modules/
           cp configs/esp32s3-N16R8/tft_buttons.py micropython/ports/esp32/modules/
-          cp fonts/vector/*.py micropython/ports/esp32/modules/        
+          cp fonts/vector/*.py micropython/ports/esp32/modules/
+          cp fonts/bitmap/vga.py micropython/ports/esp32/modules/
+          cp fonts/bitmap/vga_16.py micropython/ports/esp32/modules/
+          cp fonts/bitmap/vga_16x32.py micropython/ports/esp32/modules/
+          cp fonts/bitmap/vga_bold_16.py micropython/ports/esp32/modules/
+          cp fonts/bitmap/vga_bold_16x32.py micropython/ports/esp32/modules/
+          cp fonts/truetype/chango_16.py micropython/ports/esp32/modules/
+          cp fonts/truetype/chango_32.py micropython/ports/esp32/modules/
+          cp fonts/truetype/chango_64.py micropython/ports/esp32/modules/
+          cp fonts/truetype/inconsolata_16.py micropython/ports/esp32/modules/
+          cp fonts/truetype/inconsolata_32.py micropython/ports/esp32/modules/
+          cp fonts/truetype/inconsolata_64.py micropython/ports/esp32/modules/
+          cp fonts/truetype/NotoSans_32.py micropython/ports/esp32/modules/
+          cp fonts/truetype/NotoSansMono_32.py micropython/ports/esp32/modules/
+          cp fonts/truetype/NotoSerif_32.py micropython/ports/esp32/modules/
           echo "freeze('modules', '*.py')" >> micropython/ports/esp32/manifest.py
           
       - name: Build mpy-cross and ESP32-S3 port
