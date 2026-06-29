@@ -20,11 +20,15 @@ I modified the original driver for one of my projects to add:
 Included are 12 bitmap fonts derived from classic pc text mode fonts, 26
 Hershey vector fonts and several example programs for different devices.
 
+----
+
 ## Display Configuration
 
 Some displays may use a BGR color order or inverted colors. The `cfg_helper.py`
 program can be used to determine the color order, inversion_mode, colstart, and
 rowstart values needed for a display.
+
+----
 
 ### Color Modes
 
@@ -36,6 +40,8 @@ the `st7789.RED` color and observing the actual color displayed.
   - If the displayed color is YELLOW, `inversion_mode` should be `True.`
   - If the displayed color is CYAN, `color_order` should be `st7789.BGR` and
     `inversion_mode` should be `True.`
+
+----
 
 ### colstart and rowstart
 
@@ -50,6 +56,8 @@ The driver automatically sets the `colstart` and `rowstart` values for common
 your display, these values can be overridden using the `offsets` method. The
 `offsets` method should be called after any `rotation` method calls.
 
+----
+
 #### 128x128 st7735 cfg_helper.py example
 
 ```python
@@ -60,6 +68,8 @@ for rotation 1 use offset(1, 2)
 for rotation 2 use offset(2, 3)
 for rotation 3 use offset(3, 2)
 ```
+
+----
 
 #### 128x160 st7735 cfg_helper.py example
 
@@ -81,40 +91,47 @@ for rotation 3 use offset(0, 0)
 
 -- Russ
 
+----
+
 ## Overview
 
 This is a driver for MicroPython to handle cheap displays based on the ST7789
 chip. The driver is written in C. Firmware is provided for ESP32, ESP32 with SPIRAM,
 pyboard1.1, and Raspberry Pi Pico devices.
 
-
 <p align="center">
-  <img src="docs/ST7789.jpg" alt="ST7789 display photo"/>
+  <img src="docs/MSP1901.png" alt="ST7789 display photo"/>
 </p>
+
+----
 
 ## Working examples
 
 This module was tested on ESP32, STM32 based pyboard v1.1, and the Raspberry Pi
-Pico. You have to provide an `SPI` object and the pin to use for the `dc' input
+Pico. You have to provide an `SPI` object and the pin to use for the `dc` input
 of the screen.
 
+```python
+# ESP32 Example
+# To use baudrates above 26.6MHz you must use my firmware or modify the micropython
+# source code to increase the SPI baudrate limit by adding SPI_DEVICE_NO_DUMMY to the
+# .flag member of the spi_device_interface_config_t struct in the machine_hw_spi_init_internal.c
+# file.  Not doing so will cause the ESP32 to crash if you use a baudrate that is too high.
 
-    # ESP32 Example
-    # To use baudrates above 26.6MHz you must use my firmware or modify the micropython
-    # source code to increase the SPI baudrate limit by adding SPI_DEVICE_NO_DUMMY to the
-    # .flag member of the spi_device_interface_config_t struct in the machine_hw_spi_init_internal.c
-    # file.  Not doing so will cause the ESP32 to crash if you use a baudrate that is too high.
+import machine
+import st7789
+spi = machine.SPI(2, baudrate=40000000, polarity=1, sck=machine.Pin(18), mosi=machine.Pin(23))
+display = st7789.ST7789(spi, 240, 240, reset=machine.Pin(4, machine.Pin.OUT), dc=machine.Pin(2, machine.Pin.OUT))
+display.init()
+```
 
-    import machine
-    import st7789
-    spi = machine.SPI(2, baudrate=40000000, polarity=1, sck=machine.Pin(18), mosi=machine.Pin(23))
-    display = st7789.ST7789(spi, 240, 240, reset=machine.Pin(4, machine.Pin.OUT), dc=machine.Pin(2, machine.Pin.OUT))
-    display.init()
-
+---
 
 ## Methods
 
-- `st7789.ST7789(spi, width, height, dc, reset, cs, backlight, rotations, rotation, custom_init, color_order, inversion, options, buffer_size)`
+- ```python
+  st7789.ST7789(spi, width, height, dc, reset, cs, backlight, rotations, rotation, custom_init, color_order, inversion, options, buffer_size)
+  ```
 
     ### Required positional arguments:
     - `spi` spi device
@@ -198,37 +215,57 @@ of the screen.
       notation). Dynamic allocation is slower and can cause heap fragmentation,
       so garbage collection (GC) should be enabled.
 
-- `inversion_mode(bool)` Sets the display color inversion mode if True, clears
+----
+
+- ```python
+  inversion_mode(bool)
+  ```
+
+  Sets the display color inversion mode if True, clears
   the display color inversion mode if False.
 
-- `madctl(value)` Returns the current value of the MADCTL register or sets the MADCTL register if a value is passed to the
+----
+
+- ```python
+  madctl(value)
+  ```
+
+  Returns the current value of the MADCTL register or sets the MADCTL register if a value is passed to the
    method. The MADCTL register is used to set the display rotation and color order.
 
-  #### [MADCTL constants](#madctl-constants)
+----
 
-    Constant Name    | Value | Description
-    ---------------- | ----- | ----------------------
-    st7789.MADCTL_MY | 0x80  | Page Address Order
-    st7789_MADCTL_MX | 0x40  | Column Address Order
-    st7789_MADCTL_MV | 0x20  | Page/Column Order
-    st7789_MADCTL_ML | 0x10  | Line Address Order
-    st7789_MADCTL_MH | 0x04  | Display Data Latch Order
-    st7789_RGB       | 0x00  | RGB color order
-    st7789_BGR       | 0x08  | BGR color order
+#### [MADCTL constants](#madctl-constants)
 
-   #### [MADCTL examples](#madctl-examples)
+  Constant Name    | Value | Description
+  ---------------- | ----- | ----------------------
+  st7789.MADCTL_MY | 0x80  | Page Address Order
+  st7789_MADCTL_MX | 0x40  | Column Address Order
+  st7789_MADCTL_MV | 0x20  | Page/Column Order
+  st7789_MADCTL_ML | 0x10  | Line Address Order
+  st7789_MADCTL_MH | 0x04  | Display Data Latch Order
+  st7789_RGB       | 0x00  | RGB color order
+  st7789_BGR       | 0x08  | BGR color order
+
+----
+
+ #### [MADCTL examples](#madctl-examples)
 
 
-     Orientation | MADCTL Values for RGB color order, for BGR color order add 0x08 to the value.
-     ----------- | ---------------------------------------------------------------------------------
-     <img src="docs/madctl_0.png" /> | 0x00
-     <img src="docs/madctl_y.png" /> | 0x80 ( MADCTL_MY )
-     <img src="docs/madctl_x.png" /> | 0x40 ( MADCTL_MX )
-     <img src="docs/madctl_xy.png" /> | 0xC0 ( MADCTL_MX + MADCTL_MY )
-     <img src="docs/madctl_v.png" /> | 0x20 ( MADCTL_MV )
-     <img src="docs/madctl_vy.png" /> | 0xA0 ( MADCTL_MV + MADCTL_MY )
-     <img src="docs/madctl_vx.png" /> | 0x60 ( MADCTL_MV + MADCTL_MX )
-     <img src="docs/madctl_vxy.png" /> | 0xE0 ( MADCTL_MV + MADCTL_MX + MADCTL_MY )
+   Orientation | MADCTL Values for RGB color order, for BGR color order add 0x08 to the value.
+   ----------- | ---------------------------------------------------------------------------------
+   <img src="docs/madctl_0.png" /> | 0x00
+   <img src="docs/madctl_y.png" /> | 0x80 ( MADCTL_MY )
+   <img src="docs/madctl_x.png" /> | 0x40 ( MADCTL_MX )
+   <img src="docs/madctl_xy.png" /> | 0xC0 ( MADCTL_MX + MADCTL_MY )
+   <img src="docs/madctl_v.png" /> | 0x20 ( MADCTL_MV )
+   <img src="docs/madctl_vy.png" /> | 0xA0 ( MADCTL_MV + MADCTL_MY )
+   <img src="docs/madctl_vx.png" /> | 0x60 ( MADCTL_MV + MADCTL_MX )
+   <img src="docs/madctl_vxy.png" /> | 0xE0 ( MADCTL_MV + MADCTL_MX + MADCTL_MY )
+
+----
+
+## Init:
 
 - ```python
   init()`
@@ -236,11 +273,19 @@ of the screen.
   
   Must be called to initialize the display.
 
+----
+
+## On:
+
 - ```python
   on()
   ```
 
   Turn on the backlight pin if one was defined during init.
+
+----
+
+## Off:
 
 - ```python
   off()
@@ -248,12 +293,19 @@ of the screen.
 
   Turn off the backlight pin if one was defined during init.
 
+----
+
+## Sleep Mode:
+
 - ```python
   sleep_mode(value)
   ```
 
   If value is True, cause the display to enter sleep mode, otherwise wake up if value is False. During sleep display content may not be preserved.
 
+----
+
+## Fill:
 
 - ```python
   fill(color)
@@ -261,11 +313,19 @@ of the screen.
 
   Fill the display with the specified color.
 
+----
+
+## Pixel:
+
 - ```python
   pixel(x, y, color)
   ```
 
   Set the specified pixel to the given `color`.
+
+----
+
+## Line:
 
 - ```python
   line(x0, y0, x1, y1, color)
@@ -274,12 +334,20 @@ of the screen.
   Draws a single line with the provided `color` from (`x0`, `y0`) to
   (`x1`, `y1`).
 
+----
+
+## Horizontal Line:
+
 - ```python
   hline(x, y, length, color)
   ```
 
   Draws a single horizontal line with the provided `color` and `length`
   in pixels. Along with `vline`, this is a fast version with fewer SPI calls.
+
+----
+
+## Vertical Line:
 
 - ```python
   vline(x, y, length, color)
@@ -288,17 +356,29 @@ of the screen.
   Draws a single horizontal line with the provided `color` and `length`
   in pixels.
 
+----
+
+## Rectangle:
+
 - ```python
   rect(x, y, width, height, color)
   ```
 
   Draws a rectangle from (`x`, `y`) with corresponding dimensions
 
+----
+
+## Fill a Reactangle:
+
 - ```python
   fill_rect(x, y, width, height, color)
   ```
 
   Fill a rectangle starting from (`x`, `y`) coordinates
+
+----
+
+## Circle:
 
 - ```python
   circle(x, y, r, color)
@@ -307,6 +387,10 @@ of the screen.
   Draws a circle with radius `r` centered at the (`x`, `y`) coordinates in the given
   `color`.
 
+----
+
+## Fill a Circle:
+
 - ```python
   fill_circle(x, y, r, color)
   ```
@@ -314,15 +398,24 @@ of the screen.
   Draws a filled circle with radius `r` centered at the (`x`, `y`) coordinates
   in the given `color`.
 
+----
+
+## Blit Buffer:
+
 - ```python
   blit_buffer(buffer, x, y, width, height)
   ```
   
-
   Copy bytes() or bytearray() content to the screen internal memory. Note:
   every color requires 2 bytes in the array
 
-- `text(font, s, x, y[, fg, bg])`
+----
+
+## Text:
+
+- ```python
+  text(font, s, x, y[, fg, bg])
+  ```
 
   Write `s` (integer, string or bytes) to the display using the specified bitmap
   `font` with the coordinates as the upper-left corner of the text. The optional
@@ -331,7 +424,13 @@ of the screen.
   color defaults to `BLACK`. See the `README.md` in the `fonts/bitmap` directory
   for example fonts.
 
-- `write(bitmap_font, s, x, y[, fg, bg, background_tuple, fill_flag])`
+----
+
+## Write:
+
+- ```python
+  write(bitmap_font, s, x, y[, fg, bg, background_tuple, fill_flag])
+  ````
 
   Write text to the display using the specified proportional or Monospace bitmap
   font module with the coordinates as the upper-left corner of the text. The
@@ -353,11 +452,23 @@ of the screen.
   specify a buffer_size during the display initialization, it must be large
   enough to hold the widest character (HEIGHT * MAX_WIDTH * 2).
 
-- `write_len(bitap_font, s)`
+----
+
+## Write lenght:
+
+- ```python
+  write_len(bitap_font, s)
+  ```
 
   Returns the string's width in pixels if printed in the specified font.
 
-- `draw(vector_font, s, x, y[, fg, scale])`
+----
+
+## Draw text:
+
+- ```python
+  draw(vector_font, s, x, y[, fg, scale])
+  ```
 
   Draw text to the display using the specified Hershey vector font with the
   coordinates as the lower-left corner of the text. The foreground color of the
@@ -368,11 +479,23 @@ of the screen.
   the README.md in the `vector/fonts` directory, for example fonts and the
   utils directory for a font conversion program.
 
-- `draw_len(vector_font, s[, scale])`
+----
+
+## Draw text lenght:
+
+- ```python
+  draw_len(vector_font, s[, scale])
+  ```
 
   Returns the string's width in pixels if drawn with the specified font.
 
-- `jpg(jpg, x, y [, method])`
+----
+
+## Jpg:
+
+- ```python
+  jpg(jpg, x, y [, method])
+  ```
 
   Draw a `jpg` on the display with the given `x` and `y` coordinates as the
   upper left corner of the image. `jpg` may be a string containing a filename
@@ -385,7 +508,13 @@ of the screen.
   will draw the image one piece at a time using the Minimum Coded Unit (MCU, typically
   a multiple of 8x8) of the image. The default method is `FAST`.
 
-- `jpg_decode(jpg_filename [, x, y, width, height])`
+----
+
+## Jpg decode:
+
+- ```python
+  jpg_decode(jpg_filename [, x, y, width, height])
+  ```
 
   Decode a jpg file and return it or a portion of it as a tuple composed of
   (buffer, width, height). The buffer is a color565 blit_buffer compatible byte
@@ -395,7 +524,13 @@ of the screen.
   only contain the specified area of the image. See examples/T-DISPLAY/clock/clock.py
   examples/T-DISPLAY/toasters_jpg/toasters_jpg.py for examples.
 
-- `png(png_filename, x, y [, mask])`
+----
+
+## Png:
+
+- ```python
+  png(png_filename, x, y [, mask])
+  ```
 
   Draw a PNG file on the display with upper left corner of the image at the given `x` and `y`
   coordinates. The PNG will be clipped if it is not able to fit fully on the display. The
@@ -405,30 +540,54 @@ of the screen.
   slower than non-masked as each visible line segment is drawn separately. For an example of using a
   mask, see the alien.py program in the examples/png folder.
 
-- `polygon_center(polygon)`
+----
+
+## Center of Polygon:
+
+- ```python
+  polygon_center(polygon)
+  ```
 
    Return the center of the `polygon` as an (x, y) tuple. The `polygon` should
    consist of a list of (x, y) tuples forming a closed convex polygon.
 
-- `fill_polygon(polygon, x, y, color[, angle, center_x, center_y])`
+----
+
+## Fill a Polygon:
+
+- ```python
+  fill_polygon(polygon, x, y, color[, angle, center_x, center_y])
+  ```
 
   Draw a filled `polygon` at the `x`, and `y` coordinates in the `color` given.
   The polygon may be rotated `angle` radians about the `center_x` and
   `center_y` point. The polygon should consist of a list of (x, y) tuples
   forming a closed convex polygon.
 
-  See the TWATCH-2020 `watch.py` demo for an example.
+  See the `watch.py` demo for an example.
 
-- `polygon(polygon, x, y, color, angle, center_x, center_y)`
+----
+
+## Polygon:
+
+- ```python
+  polygon(polygon, x, y, color, angle, center_x, center_y)
+  ```
 
   Draw a `polygon` at the `x`, and `y` coordinates in the `color` given. The
   polygon may be rotated `angle` radians about the `center_x` and `center_y`
   point. The polygon should consist of a list of (x, y) tuples forming a closed
   convex polygon.
 
-  See the T-Display `roids.py` for an example.
+  See the `roids.py` for an example.
 
-- `bounding({status, as_rect})`
+----
+
+## Bounding:
+
+- ```python
+  bounding({status, as_rect})
+  ```
 
   Bounding enables or disables tracking the display area that has been written
   to. Initially, tracking is disabled; pass a True value to enable tracking and
@@ -442,9 +601,15 @@ of the screen.
   If `as_rect` parameter is True, the returned tuple will contain (min_x,
   min_y, width, height) values.
 
-  See the TWATCH-2020 `watch.py` demo for an example.
+  See the `watch.py` demo for an example.
 
-- `bitmap(bitmap, x , y [, index])`
+----
+
+## Bitmap:
+
+- ```python
+  bitmap(bitmap, x , y [, index])
+  ```
 
   Draw `bitmap` using the specified `x`, `y` coordinates as the upper-left
   corner of the `bitmap`. The optional `index` parameter provides a method to
@@ -468,26 +633,51 @@ of the screen.
   specify a buffer_size during the display initialization, it must be large
   enough to hold the one character (HEIGHT * WIDTH * 2).
 
-- `width()`
+----
+
+## Width:
+- ```python
+  width()
+  ```
 
   Returns the current logical width of the display. (ie a 135x240 display
   rotated 90 degrees is 240 pixels wide)
 
-- `height()`
+----
+
+## Height:
+
+- ```python
+  height()
+  ```
 
   Returns the current logical height of the display. (ie a 135x240 display
   rotated 90 degrees is 135 pixels high)
 
-- `rotation(r)`
+----
+
+## Rotation:
+
+- ```python
+  rotation(r)
+  ```
 
   Set the rotates the logical display in a counter-clockwise direction.
   0-Portrait (0 degrees), 1-Landscape (90 degrees), 2-Inverse Portrait (180
   degrees), 3-Inverse Landscape (270 degrees)
 
-- `offset(x_start, y_start)` The memory in the ST7789 controller is configured
+----
+
+## Offset:
+
+- ```python
+  offset(x_start, y_start)
+  ```
+
+  The memory in the ST7789 controller is configured
   for a 240x320 display. When using a smaller display like a 240x240 or
   135x240, an offset needs to be added to the x and y parameters so that the
-    pixels are written to the memory area corresponding to the visible display.
+  pixels are written to the memory area corresponding to the visible display.
   The offsets may need to be adjusted when rotating the display.
 
   For example, the TTGO-TDisplay is 135x240 and uses the following offsets.
@@ -510,11 +700,19 @@ of the screen.
   the offsets until the display looks correct. See the `cfg_helper.py` program
   in the examples folder for more information.
 
+----
+
+## Colors:
 
 The module exposes predefined colors:
-  `BLACK`, `BLUE`, `RED`, `GREEN`, `CYAN`, `MAGENTA`, `YELLOW`, and `WHITE`
 
-## Scrolling
+```text
+  `BLACK`, `BLUE`, `RED`, `GREEN`, `CYAN`, `MAGENTA`, `YELLOW`, and `WHITE`
+```
+
+----
+
+## Scrolling:
 
 The st7789 display controller contains a 240 by 320-pixel frame buffer used to
 store the pixels for the display. For scrolling, the frame buffer consists of
@@ -553,7 +751,15 @@ sets the line in the frame buffer that will be the first line after the `tfa`.
     it must not enter the fixed area (defined by Vertical Scrolling Definition, otherwise undesirable
     image will be displayed on the panel.
 
-- `vscrdef(tfa, height, bfa)` Set the vertical scrolling parameters.
+----
+
+## Verrtical Scrolling:
+
+- ```python
+  vscrdef(tfa, height, bfa)
+  ```
+  
+  Set the vertical scrolling parameters.
 
   `tfa` is the top fixed area in pixels. The top fixed area is the upper
   portion of the display frame buffer that will not be scrolled.
@@ -563,19 +769,41 @@ sets the line in the frame buffer that will be the first line after the `tfa`.
   `bfa` is the bottom fixed area in pixels. The bottom fixed area is the lower
   portion of the display frame buffer that will not be scrolled.
 
-- `vscsad(vssa)` Set the vertical scroll address.
+----
+
+## Vertical Scroll address:
+
+- ```python
+  vscsad(vssa)
+  ```
+
+  Set the vertical scroll address.
 
   `vssa` is the vertical scroll start address in pixels. The vertical scroll
   start address is the line in the frame buffer will be the first line shown
   after the TFA.
 
-## Helper functions
+----
 
-- `color565(r, g, b)`
+# Helper functions:
+
+## Color 565:
+
+- ```python
+  color565(r, g, b)
+  ```
 
   Pack a color into 2-bytes rgb565 format
 
-- `map_bitarray_to_rgb565(bitarray, buffer, width, color=WHITE, bg_color=BLACK)`
+----
+
+## Map bitarray to RGB 565:
+
+- ```python
+  map_bitarray_to_rgb565(bitarray, buffer, width, color=WHITE, bg_color=BLACK)
+  ```
 
   Convert a `bitarray` to the rgb565 color `buffer` suitable for blitting. Bit
   1 in `bitarray` is a pixel with `color` and 0 - with `bg_color`.
+
+----
