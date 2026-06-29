@@ -10,7 +10,7 @@ scroll.py
 import time
 import st7789
 import tft_config
-import vga_bold_16x16 as font
+import vga_bold_16 as font
 
 
 tft = tft_config.config(0)
