@@ -704,10 +704,10 @@ python sprites2bitmap image_file spite_width sprite_height bits_per_pixel  >spri
 
 ### MicroPython:
 
-    ```python
-    import sprites
-    ... tft config and init code ...
-    tft.bitmap(sprites, x, y, index)
-    ````
+```python
+import sprites
+... tft config and init code ...
+tft.bitmap(sprites, x, y, index)
+```
 
 ----
